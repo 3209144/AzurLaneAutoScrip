@@ -20,6 +20,8 @@ from module.ui.assets import BACK_ARROW, DAILY_CHECK
 from module.ui.page import page_fleet
 
 SIM_VALUE = 0.92
+GF_EMOTION_PER_ROUND = 10
+GF_RUN_COUNT = 150 // GF_EMOTION_PER_ROUND
 
 
 class GemsCampaignOverride(CampaignBase):
@@ -222,7 +224,7 @@ class GemsFarming(CampaignRun, FleetEquipment, Dock):
 
         logger.hr('FINDING FLAGSHIP')
 
-        scanner = ShipScanner(level=(1, 31), emotion=(10, 150),
+        scanner = ShipScanner(level=(1, 31), emotion=(GF_EMOTION_PER_ROUND * 2, 150),
                               fleet=self.fleet_to_attack, status='free')
         scanner.disable('rarity')
 
@@ -281,7 +283,7 @@ class GemsFarming(CampaignRun, FleetEquipment, Dock):
         else:
             max_level = 70
 
-        scanner = ShipScanner(level=(max_level, max_level), emotion=(10, 150),
+        scanner = ShipScanner(level=(max_level, max_level), emotion=(50, 150),
                               fleet=self.fleet_to_attack, status='free')
         scanner.disable('rarity')
 
@@ -357,9 +359,14 @@ class GemsFarming(CampaignRun, FleetEquipment, Dock):
             index='cv', rarity='common', extra='enhanceable', sort='total')
         self.dock_favourite_set(False)
 
-        ship = self.get_common_rarity_cv()
-        if ship:
-            self._ship_change_confirm(min(ship, key=lambda s: (s.level, -s.emotion)).button)
+        ships = self.get_common_rarity_cv()
+        if ships:
+            ship = min(ships, key=lambda s: (s.level, -s.emotion))
+            run_count = ship.emotion // GF_EMOTION_PER_ROUND
+            if run_count >= 9:
+                run_count += 1
+            self.config.StopCondition_RunCount = min(run_count, self.config.StopCondition_RunCount)
+            self._ship_change_confirm(ship.button)
 
             logger.info('Change flagship success')
             return True
@@ -396,9 +403,12 @@ class GemsFarming(CampaignRun, FleetEquipment, Dock):
             index='dd', rarity='common', faction=faction, extra='can_limit_break')
         self.dock_favourite_set(False)
 
-        ship = self.get_common_rarity_dd()
-        if ship:
-            self._ship_change_confirm(max(ship, key=lambda s: s.emotion).button)
+        ships = self.get_common_rarity_dd()
+        if ships:
+            ship = max(ships, key=lambda s: s.emotion)
+            run_count = max((ship.emotion - 20) // GF_EMOTION_PER_ROUND, 1)
+            self.config.StopCondition_RunCount = min(run_count, self.config.StopCondition_RunCount)
+            self._ship_change_confirm(ship.button)
 
             logger.info('Change vanguard ship success')
             return True
@@ -410,6 +420,7 @@ class GemsFarming(CampaignRun, FleetEquipment, Dock):
 
     _trigger_lv32 = False
     _trigger_emotion = False
+    _trigger_count = False
 
     def triggered_stop_condition(self, oil_check=True):
         # Lv32 limit
@@ -421,6 +432,11 @@ class GemsFarming(CampaignRun, FleetEquipment, Dock):
         if self.campaign.map_is_auto_search and self.campaign.config.GEMS_EMOTION_TRIGGRED:
             self._trigger_emotion = True
             logger.hr('TRIGGERED EMOTION LIMIT')
+            return True
+
+        if self.run_limit and self.config.StopCondition_RunCount <= 0:
+            self._trigger_count = True
+            logger.hr('Triggered stop condition: Run count')
             return True
 
         return super().triggered_stop_condition(oil_check=oil_check)
@@ -438,7 +454,6 @@ class GemsFarming(CampaignRun, FleetEquipment, Dock):
 
         while 1:
             self._trigger_lv32 = False
-            is_limit = self.config.StopCondition_RunCount
 
             try:
                 super().run(name=name, folder=folder, total=total)
@@ -449,21 +464,17 @@ class GemsFarming(CampaignRun, FleetEquipment, Dock):
                     raise e
 
             # End
-            if self._trigger_lv32 or self._trigger_emotion:
+            if self._trigger_lv32 or self._trigger_emotion or self._trigger_count:
                 success = True
+                self.config.StopCondition_RunCount = GF_RUN_COUNT
                 if self.change_flagship:
                     success = self.flagship_change()
                 if self.change_vanguard:
                     success = success and self.vanguard_change()
 
-                if is_limit and self.config.StopCondition_RunCount <= 0:
-                    logger.hr('Triggered stop condition: Run count')
-                    self.config.StopCondition_RunCount = 0
-                    self.config.Scheduler_Enable = False
-                    break
-
                 self._trigger_lv32 = False
                 self._trigger_emotion = False
+                self._trigger_count = False
                 self.campaign.config.LV32_TRIGGERED = False
                 self.campaign.config.GEMS_EMOTION_TRIGGRED = False
 
