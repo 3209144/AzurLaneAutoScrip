@@ -716,6 +716,7 @@ OpsiHazard1Leveling:
   TargetZone:
     value: 0
     option: [ 0, 44, 22 ]
+  SolveScanningDevice: false
 
 # ==================== Tools ====================
 

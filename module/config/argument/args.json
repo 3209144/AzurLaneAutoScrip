@@ -9108,6 +9108,10 @@
           44,
           22
         ]
+      },
+      "SolveScanningDevice": {
+        "type": "checkbox",
+        "value": false
       }
     },
     "OpsiFleet": {
