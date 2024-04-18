@@ -1197,7 +1197,7 @@
   },
   "Tactical": {
     "Scheduler": {
-      "Enable": true,
+      "Enable": false,
       "NextRun": "2020-01-01 00:00:00",
       "Command": "Tactical",
       "SuccessInterval": "30-60",
@@ -1246,7 +1246,7 @@
   },
   "Dorm": {
     "Scheduler": {
-      "Enable": true,
+      "Enable": false,
       "NextRun": "2020-01-01 00:00:00",
       "Command": "Dorm",
       "SuccessInterval": 278,
@@ -1269,7 +1269,7 @@
   },
   "Meowfficer": {
     "Scheduler": {
-      "Enable": true,
+      "Enable": false,
       "NextRun": "2020-01-01 00:00:00",
       "Command": "Meowfficer",
       "SuccessInterval": 30,
@@ -1293,7 +1293,7 @@
   },
   "Guild": {
     "Scheduler": {
-      "Enable": true,
+      "Enable": false,
       "NextRun": "2020-01-01 00:00:00",
       "Command": "Guild",
       "SuccessInterval": 30,
@@ -1516,7 +1516,7 @@
   },
   "Freebies": {
     "Scheduler": {
-      "Enable": true,
+      "Enable": false,
       "NextRun": "2020-01-01 00:00:00",
       "Command": "Freebies",
       "SuccessInterval": 30,
