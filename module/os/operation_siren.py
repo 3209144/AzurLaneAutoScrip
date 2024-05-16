@@ -5,7 +5,8 @@ import numpy as np
 from module.config.utils import (get_nearest_weekday_date,
                                  get_os_next_reset,
                                  get_os_reset_remain,
-                                 DEFAULT_TIME)
+                                 DEFAULT_TIME,
+                                 deep_get)
 from module.exception import RequestHumanTakeover, GameStuckError, ScriptError
 from module.logger import logger
 from module.map.map_grids import SelectedGrids
@@ -250,7 +251,10 @@ class OperationSiren(OSMap):
             OpsiFleet_Fleet=self.config.cross_get('OpsiMeowfficerFarming.OpsiFleet.Fleet'),
             OpsiFleet_Submarine=False,
             OpsiMeowfficerFarming_ActionPointPreserve=0,
-            OpsiMeowfficerFarming_HazardLevel=3,
+            OpsiMeowfficerFarming_HazardLevel=
+            self.config.cross_get('OpsiMeowfficerFarming'
+                                  '.OpsiMeowfficerFarming'
+                                  '.HazardLevel'),
             OpsiMeowfficerFarming_TargetZone=0,
         )
         while 1:
@@ -393,8 +397,12 @@ class OperationSiren(OSMap):
             OpsiGeneral_DoRandomMapEvent=True,
             OpsiGeneral_AkashiShopFilter='ActionPoint',
         )
-        if not self.config.is_task_enabled('OpsiMeowfficerFarming'):
-            self.config.cross_set(keys='OpsiMeowfficerFarming.Scheduler.Enable', value=True)
+        IsDisableOpsiMeowfficerFarming = deep_get(self.config.data, "SomethingSpecial.TurnOffForcedOnSettings.OpsiMeowfficerFarmingFromOpsiHazard1Leveling")
+        if not IsDisableOpsiMeowfficerFarming:
+            if not self.config.is_task_enabled('OpsiMeowfficerFarming'):
+                self.config.cross_set(keys='OpsiMeowfficerFarming.Scheduler.Enable', value=True)
+        else:
+            logger.warning(f"Disable OpsiMeowfficerFarming that is set from OpsiHazard1Leveling : {IsDisableOpsiMeowfficerFarming}")
         while 1:
             # Limited action point preserve of hazard 1 to 200
             self.config.OS_ACTION_POINT_PRESERVE = 200
@@ -405,13 +413,17 @@ class OperationSiren(OSMap):
                 self.config.OS_ACTION_POINT_PRESERVE = 0
             logger.attr('OS_ACTION_POINT_PRESERVE', self.config.OS_ACTION_POINT_PRESERVE)
 
-            if self.get_yellow_coins() < self.config.OS_CL1_YELLOW_COINS_PRESERVE:
-                logger.info(f'Reach the limit of yellow coins, preserve={self.config.OS_CL1_YELLOW_COINS_PRESERVE}')
-                with self.config.multi_set():
-                    self.config.task_delay(server_update=True)
-                    if not self.is_in_opsi_explore():
-                        self.config.task_call('OpsiMeowfficerFarming')
-                self.config.task_stop()
+            IsDisableOpsiHazard1LevelingYellowCoinLimit = deep_get(self.config.data, "SomethingSpecial.TurnOffForcedOnSettings.OpsiHazard1LevelingYellowCoinLimit")
+            if not IsDisableOpsiHazard1LevelingYellowCoinLimit:
+                if self.get_yellow_coins() < self.config.OS_CL1_YELLOW_COINS_PRESERVE:
+                    logger.info(f'Reach the limit of yellow coins, preserve={self.config.OS_CL1_YELLOW_COINS_PRESERVE}')
+                    with self.config.multi_set():
+                        self.config.task_delay(server_update=True)
+                        if not self.is_in_opsi_explore():
+                            self.config.task_call('OpsiMeowfficerFarming')
+                    self.config.task_stop()
+            else:
+                logger.warning(f"Disable OpsiHazard1Leveling yellow coin limit : {IsDisableOpsiHazard1LevelingYellowCoinLimit}")
 
             self.get_current_zone()
 
@@ -421,7 +433,7 @@ class OperationSiren(OSMap):
             if self.config.OpsiGeneral_BuyActionPointLimit > 0:
                 keep_current_ap = False
             self.action_point_set(cost=70, keep_current_ap=keep_current_ap, check_rest_ap=True)
-            if self._action_point_total >= 3000:
+            if self._action_point_total >= 3000 and not IsDisableOpsiMeowfficerFarming:
                 with self.config.multi_set():
                     self.config.task_delay(server_update=True)
                     if not self.is_in_opsi_explore():
