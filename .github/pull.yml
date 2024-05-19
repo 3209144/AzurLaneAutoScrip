@@ -4,5 +4,5 @@ rules:
     upstream: LmeSzinc:master
     mergeMethod: merge
   - base: smallkai
-    upstream: 0O0o0oOoO00:smallkai
+    upstream: Zuosizhu:20230309
     mergeMethod: merge
