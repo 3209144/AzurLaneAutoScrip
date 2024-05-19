@@ -23,10 +23,6 @@
     "Optimization": {
       "ScreenshotInterval": 0.3,
       "CombatScreenshotInterval": 1.0,
-      "ClickMaxRecord": 15,
-      "SingleButtonMaxCount": 12,
-      "MultiButtonMaxCount1": 6,
-      "MultiButtonMaxCount2": 6,
       "TaskHoardingDuration": 0,
       "WhenTaskQueueEmpty": "goto_main"
     },
@@ -77,11 +73,6 @@
       "FailureInterval": 0,
       "ServerUpdate": "00:00"
     },
-    "AutoRestart": {
-      "Enabled": false,
-      "AttemptsToRestart": 114514,
-      "NotifyWhenAutoRestart": false
-    },
     "Storage": {
       "Storage": {}
     }
@@ -106,8 +97,8 @@
       "AmbushEvade": true
     },
     "StopCondition": {
-      "RunCount": 0,
       "OilLimit": 1000,
+      "RunCount": 0,
       "MapAchievement": "non_stop",
       "StageIncrease": false,
       "GetNewShip": false,
@@ -180,8 +171,8 @@
       "AmbushEvade": true
     },
     "StopCondition": {
-      "RunCount": 0,
       "OilLimit": 1000,
+      "RunCount": 0,
       "MapAchievement": "non_stop",
       "StageIncrease": false,
       "GetNewShip": false,
@@ -254,8 +245,8 @@
       "AmbushEvade": true
     },
     "StopCondition": {
-      "RunCount": 0,
       "OilLimit": 1000,
+      "RunCount": 0,
       "MapAchievement": "non_stop",
       "StageIncrease": false,
       "GetNewShip": false,
@@ -327,20 +318,6 @@
       "StopIFAutoNotEnsured": true,
       "CommissionLimit": true
     },
-    "FlagshipFilter": {
-      "Sort": "default",
-      "Index": "default",
-      "Faction": "default",
-      "Rarity": "default",
-      "Extra": "default"
-    },
-    "VanguardFilter": {
-      "Sort": "default",
-      "Index": "default",
-      "Faction": "default",
-      "Rarity": "default",
-      "Extra": "default"
-    },
     "Campaign": {
       "Name": "12-4",
       "Event": "campaign_main",
@@ -352,8 +329,8 @@
       "AmbushEvade": true
     },
     "StopCondition": {
-      "RunCount": 0,
       "OilLimit": 1000,
+      "RunCount": 0,
       "MapAchievement": "non_stop",
       "StageIncrease": false,
       "GetNewShip": false,
@@ -408,8 +385,8 @@
       "AmbushEvade": true
     },
     "StopCondition": {
-      "RunCount": 0,
       "OilLimit": 1000,
+      "RunCount": 0,
       "MapAchievement": "non_stop",
       "StageIncrease": false,
       "GetNewShip": false,
@@ -482,8 +459,8 @@
       "AmbushEvade": true
     },
     "StopCondition": {
-      "RunCount": 0,
       "OilLimit": 1000,
+      "RunCount": 0,
       "MapAchievement": "non_stop",
       "StageIncrease": false,
       "GetNewShip": false,
@@ -634,8 +611,8 @@
       "AmbushEvade": true
     },
     "StopCondition": {
-      "RunCount": 0,
       "OilLimit": 1000,
+      "RunCount": 0,
       "MapAchievement": "non_stop",
       "StageIncrease": false,
       "GetNewShip": false,
@@ -681,8 +658,8 @@
       "Fleet": "single"
     },
     "StopCondition": {
-      "RunCount": 0,
       "OilLimit": 1000,
+      "RunCount": 0,
       "MapAchievement": "non_stop",
       "StageIncrease": false,
       "GetNewShip": false,
@@ -741,8 +718,8 @@
       "AmbushEvade": true
     },
     "StopCondition": {
-      "RunCount": 0,
       "OilLimit": 1000,
+      "RunCount": 0,
       "MapAchievement": "non_stop",
       "StageIncrease": false,
       "GetNewShip": false,
@@ -819,8 +796,8 @@
       "AmbushEvade": true
     },
     "StopCondition": {
-      "RunCount": 0,
       "OilLimit": 1000,
+      "RunCount": 0,
       "MapAchievement": "non_stop",
       "StageIncrease": false,
       "GetNewShip": false,
@@ -897,8 +874,8 @@
       "AmbushEvade": true
     },
     "StopCondition": {
-      "RunCount": 0,
       "OilLimit": 1000,
+      "RunCount": 0,
       "MapAchievement": "non_stop",
       "StageIncrease": false,
       "GetNewShip": false,
@@ -975,8 +952,8 @@
       "AmbushEvade": true
     },
     "StopCondition": {
-      "RunCount": 0,
       "OilLimit": 1000,
+      "RunCount": 0,
       "MapAchievement": "non_stop",
       "StageIncrease": false,
       "GetNewShip": false,
@@ -1053,8 +1030,8 @@
       "AmbushEvade": true
     },
     "StopCondition": {
-      "RunCount": 0,
       "OilLimit": 1000,
+      "RunCount": 0,
       "MapAchievement": "non_stop",
       "StageIncrease": false,
       "GetNewShip": false,
@@ -1127,8 +1104,8 @@
       "AmbushEvade": true
     },
     "StopCondition": {
-      "RunCount": 0,
       "OilLimit": 1000,
+      "RunCount": 0,
       "MapAchievement": "non_stop",
       "StageIncrease": false,
       "GetNewShip": false,
@@ -1204,8 +1181,8 @@
       "AmbushEvade": true
     },
     "StopCondition": {
-      "RunCount": 0,
       "OilLimit": 1000,
+      "RunCount": 0,
       "MapAchievement": "non_stop",
       "StageIncrease": false,
       "GetNewShip": false,
@@ -1251,8 +1228,8 @@
       "Fleet": "single"
     },
     "StopCondition": {
-      "RunCount": 0,
       "OilLimit": 1000,
+      "RunCount": 0,
       "MapAchievement": "non_stop",
       "StageIncrease": false,
       "GetNewShip": false,
@@ -1517,7 +1494,7 @@
       "UseGems": false,
       "Refresh": false,
       "BuySkinBox": false,
-      "ConsumeCoins": 550000,
+      "ConsumeCoins": false,
       "Filter": "BookRedT3 > BookYellowT3 > BookBlueT3 > BookRedT2\n> Cube\n> FoodT6 > FoodT5"
     },
     "Storage": {
@@ -1916,9 +1893,6 @@
       "FailureInterval": 60,
       "ServerUpdate": "00:00, 12:00"
     },
-    "HigherPriority": {
-      "Enable": false
-    },
     "OpsiHazard1Leveling": {
       "TargetZone": 0
     },
@@ -1991,39 +1965,13 @@
       "RestartEverytime": true,
       "RepushLua": true,
       "GGMultiplyingFactor": 200,
-      "Timeout": 1200,
+      "Timeout": 120,
       "DisabledTask": "disable_all_dangerous_task"
     },
     "PowerLimit": {
       "Exercise": 16500,
       "Raid": 16500,
       "Ash": 16500
-    },
-    "ChangeShip": {
-      "Enable": false,
-      "PushLua": false,
-      "Timeout": 90,
-      "ShipData": "106021;1;6;4\n107041;1;6;4\n206011;1;6;4\n107011;1;6;4\n105011;1;5;6\n105021;1;5;6"
-    },
-    "ChangeAttribute": {
-      "Enable": false,
-      "PushLua": false,
-      "Timeout": 600,
-      "ShipData": null
-    },
-    "Storage": {
-      "Storage": {}
-    }
-  },
-  "SomethingSpecial": {
-    "InfiniteDelay": {
-      "Commission": false,
-      "Research": false,
-      "Reward": false
-    },
-    "TurnOffForcedOnSettings": {
-      "OpsiMeowfficerFarmingFromOpsiHazard1Leveling": false,
-      "OpsiHazard1LevelingYellowCoinLimit": false
     },
     "Storage": {
       "Storage": {}

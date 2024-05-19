@@ -52,20 +52,20 @@ GemsFarming:
 Event:
   Campaign:
     Mode: normal
-#    Event:
-#      type: state
+    Event:
+      type: state
     AmbushEvade: true
 Event2:
   Campaign:
     Mode: normal
-#    Event:
-#      type: state
+    Event:
+      type: state
     AmbushEvade: true
 Event3:
   Campaign:
     Mode: normal
-#    Event:
-#      display: disabled
+    Event:
+      display: disabled
     AmbushEvade: true
 EventA:
   Scheduler:
@@ -440,13 +440,7 @@ OpsiHazard1Leveling:
 # ==================== GGHandler ====================
 GGHandler:
   Timeout:
-    value: 1200
-ChangeShip:
-  Timeout:
-    value: 90
-ChangeAttribute:
-  Timeout:
-    value: 600
+    value: 120
 
 # ==================== Dashboard ====================
 Dashboard:
