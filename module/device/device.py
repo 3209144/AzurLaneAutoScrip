@@ -67,7 +67,7 @@ class Device(Screenshot, Control, AppControl):
     _screen_size_checked = False
     detect_record = set()
     click_record = collections.deque(maxlen=15)
-    stuck_timer = Timer(180, count=60).start()
+    stuck_timer = Timer(60, count=60).start()
     stuck_timer_long = Timer(180, count=180).start()
     stuck_long_wait_list = ['BATTLE_STATUS_S', 'PAUSE', 'LOGIN_CHECK']
 
@@ -104,10 +104,6 @@ class Device(Screenshot, Control, AppControl):
                 self.early_maatouch_init()
             if self.config.Emulator_ControlMethod == 'minitouch':
                 self.early_minitouch_init()
-
-        record_maxlen = self.config.Optimization_ClickMaxRecord
-        if record_maxlen != self.click_record.maxlen:
-            self.click_record = collections.deque(maxlen=record_maxlen)
 
     def run_simple_screenshot_benchmark(self):
         """
@@ -267,29 +263,19 @@ class Device(Screenshot, Control, AppControl):
 
         return removed
 
-    def check_and_ensure_record_setting(self):
-        record_maxlen = self.config.Optimization_ClickMaxRecord
-        if self.config.Optimization_SingleButtonMaxCount > record_maxlen:
-            self.config.Optimization_SingleButtonMaxCount = int(0.8 * record_maxlen)
-        if self.config.Optimization_MultiButtonMaxCount1 + self.config.Optimization_MultiButtonMaxCount2 > record_maxlen:
-            self.config.Optimization_MultiButtonMaxCount1 = int(0.4 * record_maxlen)
-            self.config.Optimization_MultiButtonMaxCount2 = int(0.4 * record_maxlen)
-
     def click_record_check(self):
         """
         Raises:
             GameTooManyClickError:
         """
-        self.check_and_ensure_record_setting()
-
         count = collections.Counter(self.click_record).most_common(2)
-        if count[0][1] >= self.config.Optimization_SingleButtonMaxCount:
+        if count[0][1] >= 12:
             show_function_call()
             logger.warning(f'Too many click for a button: {count[0][0]}')
             logger.warning(f'History click: {[str(prev) for prev in self.click_record]}')
             self.click_record_clear()
             raise GameTooManyClickError(f'Too many click for a button: {count[0][0]}')
-        if len(count) >= 2 and count[0][1] >= self.config.Optimization_MultiButtonMaxCount1 and count[1][1] >= self.config.Optimization_MultiButtonMaxCount2:
+        if len(count) >= 2 and count[0][1] >= 6 and count[1][1] >= 6:
             show_function_call()
             logger.warning(f'Too many click between 2 buttons: {count[0][0]}, {count[1][0]}')
             logger.warning(f'History click: {[str(prev) for prev in self.click_record]}')
