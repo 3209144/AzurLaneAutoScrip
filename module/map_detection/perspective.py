@@ -168,9 +168,8 @@ class Perspective:
         Returns:
             np.ndarray
         """
-        image = rgb2gray(crop(image, self.config.DETECTING_AREA, copy=False))
-        cv2.bitwise_and(image, ASSETS.ui_mask, dst=image)
-        cv2.subtract(255, image, dst=image)
+        image = rgb2gray(crop(image, self.config.DETECTING_AREA))
+        image = cv2.subtract(255, cv2.bitwise_and(image, ASSETS.ui_mask))
         return image
 
     @staticmethod

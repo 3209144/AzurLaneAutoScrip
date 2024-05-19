@@ -198,6 +198,22 @@
         "type": "input",
         "value": 1.0
       },
+      "ClickMaxRecord": {
+        "type": "input",
+        "value": 15
+      },
+      "SingleButtonMaxCount": {
+        "type": "input",
+        "value": 12
+      },
+      "MultiButtonMaxCount1": {
+        "type": "input",
+        "value": 6
+      },
+      "MultiButtonMaxCount2": {
+        "type": "input",
+        "value": 6
+      },
       "TaskHoardingDuration": {
         "type": "input",
         "value": 0
@@ -408,6 +424,20 @@
         "display": "hide"
       }
     },
+    "AutoRestart": {
+      "Enabled": {
+        "type": "checkbox",
+        "value": false
+      },
+      "AttemptsToRestart": {
+        "type": "input",
+        "value": 114514
+      },
+      "NotifyWhenAutoRestart": {
+        "type": "checkbox",
+        "value": false
+      }
+    },
     "Storage": {
       "Storage": {
         "type": "storage",
@@ -496,13 +526,13 @@
       }
     },
     "StopCondition": {
-      "OilLimit": {
-        "type": "input",
-        "value": 1000
-      },
       "RunCount": {
         "type": "input",
         "value": 0
+      },
+      "OilLimit": {
+        "type": "input",
+        "value": 1000
       },
       "MapAchievement": {
         "type": "select",
@@ -873,13 +903,13 @@
       }
     },
     "StopCondition": {
-      "OilLimit": {
-        "type": "input",
-        "value": 1000
-      },
       "RunCount": {
         "type": "input",
         "value": 0
+      },
+      "OilLimit": {
+        "type": "input",
+        "value": 1000
       },
       "MapAchievement": {
         "type": "select",
@@ -1250,13 +1280,13 @@
       }
     },
     "StopCondition": {
-      "OilLimit": {
-        "type": "input",
-        "value": 1000
-      },
       "RunCount": {
         "type": "input",
         "value": 0
+      },
+      "OilLimit": {
+        "type": "input",
+        "value": 1000
       },
       "MapAchievement": {
         "type": "select",
@@ -1644,6 +1674,174 @@
         "value": true
       }
     },
+    "FlagshipFilter": {
+      "Sort": {
+        "type": "select",
+        "value": "default",
+        "option": [
+          "default",
+          "rarity",
+          "level",
+          "total",
+          "join",
+          "intimacy",
+          "stat"
+        ]
+      },
+      "Index": {
+        "type": "select",
+        "value": "default",
+        "option": [
+          "default",
+          "all",
+          "vanguard",
+          "main",
+          "dd",
+          "cl",
+          "ca",
+          "bb",
+          "cv",
+          "repair",
+          "ss",
+          "others",
+          "not_available"
+        ]
+      },
+      "Faction": {
+        "type": "select",
+        "value": "default",
+        "option": [
+          "default",
+          "all",
+          "eagle",
+          "royal",
+          "sakura",
+          "iron",
+          "dragon",
+          "sardegna",
+          "northern",
+          "iris",
+          "vichya",
+          "other",
+          "not_available"
+        ]
+      },
+      "Rarity": {
+        "type": "select",
+        "value": "default",
+        "option": [
+          "default",
+          "all",
+          "common",
+          "rare",
+          "elite",
+          "super_rare",
+          "ultra"
+        ]
+      },
+      "Extra": {
+        "type": "select",
+        "value": "default",
+        "option": [
+          "default",
+          "no_limit",
+          "has_skin",
+          "can_retrofit",
+          "enhanceable",
+          "can_limit_break",
+          "not_level_max",
+          "can_awaken",
+          "can_awaken_plus",
+          "special",
+          "oath_skin",
+          "not_available"
+        ]
+      }
+    },
+    "VanguardFilter": {
+      "Sort": {
+        "type": "select",
+        "value": "default",
+        "option": [
+          "default",
+          "rarity",
+          "level",
+          "total",
+          "join",
+          "intimacy",
+          "stat"
+        ]
+      },
+      "Index": {
+        "type": "select",
+        "value": "default",
+        "option": [
+          "default",
+          "all",
+          "vanguard",
+          "main",
+          "dd",
+          "cl",
+          "ca",
+          "bb",
+          "cv",
+          "repair",
+          "ss",
+          "others",
+          "not_available"
+        ]
+      },
+      "Faction": {
+        "type": "select",
+        "value": "default",
+        "option": [
+          "default",
+          "all",
+          "eagle",
+          "royal",
+          "sakura",
+          "iron",
+          "dragon",
+          "sardegna",
+          "northern",
+          "iris",
+          "vichya",
+          "other",
+          "not_available"
+        ]
+      },
+      "Rarity": {
+        "type": "select",
+        "value": "default",
+        "option": [
+          "default",
+          "all",
+          "common",
+          "rare",
+          "elite",
+          "super_rare",
+          "ultra"
+        ]
+      },
+      "Extra": {
+        "type": "select",
+        "value": "default",
+        "option": [
+          "default",
+          "no_limit",
+          "has_skin",
+          "can_retrofit",
+          "enhanceable",
+          "can_limit_break",
+          "not_level_max",
+          "can_awaken",
+          "can_awaken_plus",
+          "special",
+          "oath_skin",
+          "not_available"
+        ]
+      }
+    },
     "Campaign": {
       "Name": {
         "type": "input",
@@ -1720,13 +1918,13 @@
         ],
         "display": "hide",
         "option_bold": [
-          "event_20210916_cn",
+          "event_20230817_cn",
           "event_20240425_cn"
         ],
         "cn": "event_20240425_cn",
         "en": "event_20240425_cn",
         "jp": "event_20240425_cn",
-        "tw": "event_20210916_cn"
+        "tw": "event_20230817_cn"
       },
       "Mode": {
         "type": "select",
@@ -1763,14 +1961,14 @@
       }
     },
     "StopCondition": {
-      "OilLimit": {
-        "type": "input",
-        "value": 1000
-      },
       "RunCount": {
         "type": "input",
         "value": 0,
         "display": "hide"
+      },
+      "OilLimit": {
+        "type": "input",
+        "value": 1000
       },
       "MapAchievement": {
         "type": "select",
@@ -1985,7 +2183,7 @@
         "value": "12-4"
       },
       "Event": {
-        "type": "state",
+        "type": "select",
         "value": "campaign_main",
         "option": [
           "event_20200227_cn",
@@ -2054,13 +2252,13 @@
           "event_20240425_cn"
         ],
         "option_bold": [
-          "event_20210916_cn",
+          "event_20230817_cn",
           "event_20240425_cn"
         ],
         "cn": "event_20240425_cn",
         "en": "event_20240425_cn",
         "jp": "event_20240425_cn",
-        "tw": "event_20210916_cn"
+        "tw": "event_20230817_cn"
       },
       "Mode": {
         "type": "select",
@@ -2094,13 +2292,13 @@
       }
     },
     "StopCondition": {
-      "OilLimit": {
-        "type": "input",
-        "value": 1000
-      },
       "RunCount": {
         "type": "input",
         "value": 0
+      },
+      "OilLimit": {
+        "type": "input",
+        "value": 1000
       },
       "MapAchievement": {
         "type": "select",
@@ -2434,7 +2632,7 @@
         "value": "12-4"
       },
       "Event": {
-        "type": "state",
+        "type": "select",
         "value": "campaign_main",
         "option": [
           "event_20200227_cn",
@@ -2503,13 +2701,13 @@
           "event_20240425_cn"
         ],
         "option_bold": [
-          "event_20210916_cn",
+          "event_20230817_cn",
           "event_20240425_cn"
         ],
         "cn": "event_20240425_cn",
         "en": "event_20240425_cn",
         "jp": "event_20240425_cn",
-        "tw": "event_20210916_cn"
+        "tw": "event_20230817_cn"
       },
       "Mode": {
         "type": "select",
@@ -2543,13 +2741,13 @@
       }
     },
     "StopCondition": {
-      "OilLimit": {
-        "type": "input",
-        "value": 1000
-      },
       "RunCount": {
         "type": "input",
         "value": 0
+      },
+      "OilLimit": {
+        "type": "input",
+        "value": 1000
       },
       "MapAchievement": {
         "type": "select",
@@ -2947,17 +3145,18 @@
           "event_20230914_cn",
           "event_20231026_cn",
           "event_20231123_cn",
-          "event_20231221_cn"
+          "event_20231221_cn",
+          "event_20240229_cn",
+          "event_20240425_cn"
         ],
-        "display": "disabled",
         "option_bold": [
-          "event_20210527_cn",
-          "event_20211229_cn"
+          "event_20230817_cn",
+          "event_20240425_cn"
         ],
-        "cn": "event_20211229_cn",
-        "en": "event_20211229_cn",
-        "jp": "event_20211229_cn",
-        "tw": "event_20210527_cn"
+        "cn": "event_20240425_cn",
+        "en": "event_20240425_cn",
+        "jp": "event_20240425_cn",
+        "tw": "event_20230817_cn"
       },
       "Mode": {
         "type": "select",
@@ -3406,13 +3605,13 @@
       }
     },
     "StopCondition": {
-      "OilLimit": {
-        "type": "input",
-        "value": 1000
-      },
       "RunCount": {
         "type": "input",
         "value": 0
+      },
+      "OilLimit": {
+        "type": "input",
+        "value": 1000
       },
       "MapAchievement": {
         "type": "select",
@@ -3633,13 +3832,13 @@
       }
     },
     "StopCondition": {
-      "OilLimit": {
-        "type": "input",
-        "value": 1000
-      },
       "RunCount": {
         "type": "input",
         "value": 0
+      },
+      "OilLimit": {
+        "type": "input",
+        "value": 1000
       },
       "MapAchievement": {
         "type": "select",
@@ -3926,13 +4125,13 @@
       }
     },
     "StopCondition": {
-      "OilLimit": {
-        "type": "input",
-        "value": 1000
-      },
       "RunCount": {
         "type": "input",
         "value": 0
+      },
+      "OilLimit": {
+        "type": "input",
+        "value": 1000
       },
       "MapAchievement": {
         "type": "select",
@@ -4346,13 +4545,13 @@
           "event_20240425_cn"
         ],
         "option_bold": [
-          "event_20210916_cn",
+          "event_20230817_cn",
           "event_20240425_cn"
         ],
         "cn": "event_20240425_cn",
         "en": "event_20240425_cn",
         "jp": "event_20240425_cn",
-        "tw": "event_20210916_cn"
+        "tw": "event_20230817_cn"
       },
       "Mode": {
         "type": "select",
@@ -4387,14 +4586,14 @@
       }
     },
     "StopCondition": {
-      "OilLimit": {
-        "type": "input",
-        "value": 1000
-      },
       "RunCount": {
         "type": "input",
         "value": 0,
         "display": "hide"
+      },
+      "OilLimit": {
+        "type": "input",
+        "value": 1000
       },
       "MapAchievement": {
         "type": "select",
@@ -4812,13 +5011,13 @@
           "event_20240425_cn"
         ],
         "option_bold": [
-          "event_20210916_cn",
+          "event_20230817_cn",
           "event_20240425_cn"
         ],
         "cn": "event_20240425_cn",
         "en": "event_20240425_cn",
         "jp": "event_20240425_cn",
-        "tw": "event_20210916_cn"
+        "tw": "event_20230817_cn"
       },
       "Mode": {
         "type": "select",
@@ -4853,14 +5052,14 @@
       }
     },
     "StopCondition": {
-      "OilLimit": {
-        "type": "input",
-        "value": 1000
-      },
       "RunCount": {
         "type": "input",
         "value": 0,
         "display": "hide"
+      },
+      "OilLimit": {
+        "type": "input",
+        "value": 1000
       },
       "MapAchievement": {
         "type": "select",
@@ -5278,13 +5477,13 @@
           "event_20240425_cn"
         ],
         "option_bold": [
-          "event_20210916_cn",
+          "event_20230817_cn",
           "event_20240425_cn"
         ],
         "cn": "event_20240425_cn",
         "en": "event_20240425_cn",
         "jp": "event_20240425_cn",
-        "tw": "event_20210916_cn"
+        "tw": "event_20230817_cn"
       },
       "Mode": {
         "type": "select",
@@ -5319,14 +5518,14 @@
       }
     },
     "StopCondition": {
-      "OilLimit": {
-        "type": "input",
-        "value": 1000
-      },
       "RunCount": {
         "type": "input",
         "value": 0,
         "display": "hide"
+      },
+      "OilLimit": {
+        "type": "input",
+        "value": 1000
       },
       "MapAchievement": {
         "type": "select",
@@ -5744,13 +5943,13 @@
           "event_20240425_cn"
         ],
         "option_bold": [
-          "event_20210916_cn",
+          "event_20230817_cn",
           "event_20240425_cn"
         ],
         "cn": "event_20240425_cn",
         "en": "event_20240425_cn",
         "jp": "event_20240425_cn",
-        "tw": "event_20210916_cn"
+        "tw": "event_20230817_cn"
       },
       "Mode": {
         "type": "select",
@@ -5785,14 +5984,14 @@
       }
     },
     "StopCondition": {
-      "OilLimit": {
-        "type": "input",
-        "value": 1000
-      },
       "RunCount": {
         "type": "input",
         "value": 0,
         "display": "hide"
+      },
+      "OilLimit": {
+        "type": "input",
+        "value": 1000
       },
       "MapAchievement": {
         "type": "select",
@@ -6200,13 +6399,13 @@
           "event_20240425_cn"
         ],
         "option_bold": [
-          "event_20210916_cn",
+          "event_20230817_cn",
           "event_20240425_cn"
         ],
         "cn": "event_20240425_cn",
         "en": "event_20240425_cn",
         "jp": "event_20240425_cn",
-        "tw": "event_20210916_cn"
+        "tw": "event_20230817_cn"
       },
       "Mode": {
         "type": "select",
@@ -6241,14 +6440,14 @@
       }
     },
     "StopCondition": {
-      "OilLimit": {
-        "type": "input",
-        "value": 1000
-      },
       "RunCount": {
         "type": "input",
         "value": 0,
         "display": "hide"
+      },
+      "OilLimit": {
+        "type": "input",
+        "value": 1000
       },
       "MapAchievement": {
         "type": "select",
@@ -6652,14 +6851,14 @@
       }
     },
     "StopCondition": {
-      "OilLimit": {
-        "type": "input",
-        "value": 1000
-      },
       "RunCount": {
         "type": "input",
         "value": 0,
         "display": "hide"
+      },
+      "OilLimit": {
+        "type": "input",
+        "value": 1000
       },
       "MapAchievement": {
         "type": "select",
@@ -6881,13 +7080,13 @@
       }
     },
     "StopCondition": {
-      "OilLimit": {
-        "type": "input",
-        "value": 1000
-      },
       "RunCount": {
         "type": "input",
         "value": 0
+      },
+      "OilLimit": {
+        "type": "input",
+        "value": 1000
       },
       "MapAchievement": {
         "type": "select",
@@ -7997,8 +8196,8 @@
         "value": false
       },
       "ConsumeCoins": {
-        "type": "checkbox",
-        "value": false
+        "type": "input",
+        "value": 550000
       },
       "Filter": {
         "type": "textarea",
@@ -9530,6 +9729,12 @@
         "display": "hide"
       }
     },
+    "HigherPriority": {
+      "Enable": {
+        "type": "checkbox",
+        "value": false
+      }
+    },
     "OpsiHazard1Leveling": {
       "TargetZone": {
         "type": "select",
@@ -9740,8 +9945,7 @@
       },
       "RestartEverytime": {
         "type": "checkbox",
-        "value": true,
-        "display": "disabled"
+        "value": true
       },
       "RepushLua": {
         "type": "checkbox",
@@ -9753,7 +9957,7 @@
       },
       "Timeout": {
         "type": "input",
-        "value": 120
+        "value": 1200
       },
       "DisabledTask": {
         "type": "select",
@@ -9778,6 +9982,76 @@
       "Ash": {
         "type": "input",
         "value": 16500
+      }
+    },
+    "ChangeShip": {
+      "Enable": {
+        "type": "checkbox",
+        "value": false
+      },
+      "PushLua": {
+        "type": "checkbox",
+        "value": false
+      },
+      "Timeout": {
+        "type": "input",
+        "value": 90
+      },
+      "ShipData": {
+        "type": "textarea",
+        "value": "106021;1;6;4\n107041;1;6;4\n206011;1;6;4\n107011;1;6;4\n105011;1;5;6\n105021;1;5;6"
+      }
+    },
+    "ChangeAttribute": {
+      "Enable": {
+        "type": "checkbox",
+        "value": false
+      },
+      "PushLua": {
+        "type": "checkbox",
+        "value": false
+      },
+      "Timeout": {
+        "type": "input",
+        "value": 600
+      },
+      "ShipData": {
+        "type": "textarea",
+        "value": ""
+      }
+    },
+    "Storage": {
+      "Storage": {
+        "type": "storage",
+        "value": {},
+        "valuetype": "ignore",
+        "display": "disabled"
+      }
+    }
+  },
+  "SomethingSpecial": {
+    "InfiniteDelay": {
+      "Commission": {
+        "type": "checkbox",
+        "value": false
+      },
+      "Research": {
+        "type": "checkbox",
+        "value": false
+      },
+      "Reward": {
+        "type": "checkbox",
+        "value": false
+      }
+    },
+    "TurnOffForcedOnSettings": {
+      "OpsiMeowfficerFarmingFromOpsiHazard1Leveling": {
+        "type": "checkbox",
+        "value": false
+      },
+      "OpsiHazard1LevelingYellowCoinLimit": {
+        "type": "checkbox",
+        "value": false
       }
     },
     "Storage": {
