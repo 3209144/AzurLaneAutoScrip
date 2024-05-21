@@ -40,6 +40,10 @@ class GeneratedConfig:
     # Group `Optimization`
     Optimization_ScreenshotInterval = 0.3
     Optimization_CombatScreenshotInterval = 1.0
+    Optimization_ClickMaxRecord = 15
+    Optimization_SingleButtonMaxCount = 12
+    Optimization_MultiButtonMaxCount1 = 6
+    Optimization_MultiButtonMaxCount2 = 6
     Optimization_TaskHoardingDuration = 0
     Optimization_WhenTaskQueueEmpty = 'goto_main'  # stay_there, goto_main, close_game
 
@@ -83,8 +87,8 @@ class GeneratedConfig:
     Campaign_AmbushEvade = True
 
     # Group `StopCondition`
-    StopCondition_OilLimit = 1000
     StopCondition_RunCount = 0
+    StopCondition_OilLimit = 1000
     StopCondition_MapAchievement = 'non_stop'  # non_stop, 100_percent_clear, map_3_stars, threat_safe, threat_safe_without_3_stars
     StopCondition_StageIncrease = False
     StopCondition_GetNewShip = False
@@ -149,13 +153,27 @@ class GeneratedConfig:
 
     # Group `GemsFarming`
     GemsFarming_ChangeFlagship = 'ship'  # ship, ship_equip
+    GemsFarming_CommonCV = 'any'  # any, langley, bogue, ranger, hermes
     GemsFarming_ChangeVanguard = 'ship'  # disabled, ship, ship_equip
+    GemsFarming_CommonDD = 'any'  # any, aulick_or_foote, cassin_or_downes
     GemsFarming_ALLowLowVanguardLevel = True
     GemsFarming_FleetNumberInHardMode = 0  # 0, 1, 2
     GemsFarming_StopIFAutoNotEnsured = True
-    GemsFarming_CommonCV = 'any'  # any, langley, bogue, ranger, hermes
-    GemsFarming_CommonDD = 'any'  # any, aulick_or_foote, cassin_or_downes
     GemsFarming_CommissionLimit = True
+
+    # Group `FlagshipFilter`
+    FlagshipFilter_Sort = 'default'  # default, rarity, level, total, join, intimacy, stat
+    FlagshipFilter_Index = 'default'  # default, all, vanguard, main, dd, cl, ca, bb, cv, repair, ss, others, not_available
+    FlagshipFilter_Faction = 'default'  # default, all, eagle, royal, sakura, iron, dragon, sardegna, northern, iris, vichya, other, not_available
+    FlagshipFilter_Rarity = 'default'  # default, all, common, rare, elite, super_rare, ultra
+    FlagshipFilter_Extra = 'default'  # default, no_limit, has_skin, can_retrofit, enhanceable, can_limit_break, not_level_max, can_awaken, can_awaken_plus, special, oath_skin, not_available
+
+    # Group `VanguardFilter`
+    VanguardFilter_Sort = 'default'  # default, rarity, level, total, join, intimacy, stat
+    VanguardFilter_Index = 'default'  # default, all, vanguard, main, dd, cl, ca, bb, cv, repair, ss, others, not_available
+    VanguardFilter_Faction = 'default'  # default, all, eagle, royal, sakura, iron, dragon, sardegna, northern, iris, vichya, other, not_available
+    VanguardFilter_Rarity = 'default'  # default, all, common, rare, elite, super_rare, ultra
+    VanguardFilter_Extra = 'default'  # default, no_limit, has_skin, can_retrofit, enhanceable, can_limit_break, not_level_max, can_awaken, can_awaken_plus, special, oath_skin, not_available
 
     # Group `EventGeneral`
     EventGeneral_PtLimit = 0
@@ -256,7 +274,7 @@ class GeneratedConfig:
     GeneralShop_UseGems = False
     GeneralShop_Refresh = False
     GeneralShop_BuySkinBox = False
-    GeneralShop_ConsumeCoins = False
+    GeneralShop_ConsumeCoins = 550000
     GeneralShop_Filter = 'BookRedT3 > BookYellowT3 > BookBlueT3 > BookRedT2\n> Cube\n> FoodT6 > FoodT5'
 
     # Group `GuildShop`
@@ -421,6 +439,9 @@ class GeneratedConfig:
     OpsiMeowfficerFarming_HazardLevel = 5  # 3, 4, 5, 6, 10
     OpsiMeowfficerFarming_TargetZone = 0
 
+    # Group `HigherPriority`
+    HigherPriority_Enable = False
+
     # Group `OpsiHazard1Leveling`
     OpsiHazard1Leveling_TargetZone = 0  # 0, 44, 22
 
@@ -450,13 +471,34 @@ class GeneratedConfig:
     GGHandler_RestartEverytime = True
     GGHandler_RepushLua = True
     GGHandler_GGMultiplyingFactor = 200
-    GGHandler_Timeout = 120
+    GGHandler_Timeout = 1200
     GGHandler_DisabledTask = 'disable_all_dangerous_task'  # disable_all_dangerous_task, disable_guild_and_dangerous, disable_exercise, enable_all
 
     # Group `PowerLimit`
     PowerLimit_Exercise = 16500
     PowerLimit_Raid = 16500
     PowerLimit_Ash = 16500
+
+    # Group `ChangeShip`
+    ChangeShip_Enable = False
+    ChangeShip_PushLua = False
+    ChangeShip_Timeout = 90
+    ChangeShip_ShipData = '106021;1;6;4\n107041;1;6;4\n206011;1;6;4\n107011;1;6;4\n105011;1;5;6\n105021;1;5;6'
+
+    # Group `ChangeAttribute`
+    ChangeAttribute_Enable = False
+    ChangeAttribute_PushLua = False
+    ChangeAttribute_Timeout = 600
+    ChangeAttribute_ShipData = None
+
+    # Group `InfiniteDelay`
+    InfiniteDelay_Commission = False
+    InfiniteDelay_Research = False
+    InfiniteDelay_Reward = False
+
+    # Group `TurnOffForcedOnSettings`
+    TurnOffForcedOnSettings_OpsiMeowfficerFarmingFromOpsiHazard1Leveling = False
+    TurnOffForcedOnSettings_OpsiHazard1LevelingYellowCoinLimit = False
 
     # Group `Oil`
     Oil_Value = 0
@@ -520,6 +562,11 @@ class GeneratedConfig:
     GuildCoin_Value = 0
     GuildCoin_Color = '^000000'
     GuildCoin_Record = datetime.datetime(2020, 1, 1, 0, 0)
+
+    # Group `AutoRestart`
+    AutoRestart_Enabled = False
+    AutoRestart_AttemptsToRestart = 114514
+    AutoRestart_NotifyWhenAutoRestart = False
 
     # Group `Storage`
     Storage_Storage = {}

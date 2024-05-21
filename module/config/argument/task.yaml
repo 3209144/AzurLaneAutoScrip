@@ -23,6 +23,7 @@ Alas:
     Restart:
       - Scheduler
       - RestartEmulator
+      - AutoRestart
 
 # ==================== Farm ====================
 
@@ -60,6 +61,8 @@ Farm:
     GemsFarming:
       - Scheduler
       - GemsFarming
+      - FlagshipFilter
+      - VanguardFilter
       - Campaign
       - StopCondition
       - Fleet
@@ -321,6 +324,7 @@ Opsi:
       - OpsiFleet
     OpsiHazard1Leveling:
       - Scheduler
+      - HigherPriority
       - OpsiHazard1Leveling
       - OpsiFleet
     OpsiCrossMonth:
@@ -344,3 +348,8 @@ Tool:
       - GameManager
       - GGHandler
       - PowerLimit
+      - ChangeShip
+      - ChangeAttribute
+    SomethingSpecial:
+      - InfiniteDelay
+      - TurnOffForcedOnSettings

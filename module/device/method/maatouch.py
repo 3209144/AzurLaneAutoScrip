@@ -1,6 +1,5 @@
 import socket
 import threading
-import time
 from functools import wraps
 
 from adbutils.errors import AdbError
@@ -9,7 +8,7 @@ from module.base.decorator import cached_property, del_cached_property, has_cach
 from module.base.timer import Timer
 from module.base.utils import *
 from module.device.connection import Connection
-from module.device.method.minitouch import Command, CommandBuilder, insert_swipe
+from module.device.method.minitouch import CommandBuilder, insert_swipe
 from module.device.method.utils import RETRY_TRIES, handle_adb_error, retry_sleep
 from module.exception import RequestHumanTakeover
 from module.logger import logger
@@ -39,15 +38,6 @@ def retry(func):
                 def init():
                     self.adb_reconnect()
                     del_cached_property(self, '_maatouch_builder')
-            # MaaTouchSyncTimeout
-            # Probably because adb server was killed
-            except MaaTouchSyncTimeout as e:
-                logger.error(e)
-
-                def init():
-                    self.adb_reconnect()
-                    del_cached_property(self, '_maatouch_builder')
-                    self.reset_maatouch()
             # Emulator closed
             except ConnectionAbortedError as e:
                 logger.error(e)
@@ -89,12 +79,7 @@ def retry(func):
 
 
 class MaatouchBuilder(CommandBuilder):
-    def __init__(
-            self,
-            device,
-            contact=0,
-            handle_orientation=False,
-    ):
+    def __init__(self, device, contact=0, handle_orientation=False):
         """
         Args:
             device (MaaTouch):
@@ -105,18 +90,8 @@ class MaatouchBuilder(CommandBuilder):
     def send(self):
         return self.device.maatouch_send(builder=self)
 
-    def send_sync(self, mode=2):
-        return self.device.maatouch_send_sync(builder=self, mode=mode)
-
-    def end(self):
-        self.device.sleep(self.DEFAULT_DELAY)
-
 
 class MaaTouchNotInstalledError(Exception):
-    pass
-
-
-class MaaTouchSyncTimeout(Exception):
     pass
 
 
@@ -146,8 +121,6 @@ class MaaTouch(Connection):
             del self._maatouch_init_thread
             self._maatouch_init_thread = None
 
-        # Return an empty builder
-        self._maatouch_builder.clear()
         return self._maatouch_builder
 
     def early_maatouch_init(self):
@@ -201,7 +174,7 @@ class MaaTouch(Connection):
 
         # CLASSPATH=/data/local/tmp/maatouch app_process / com.shxyke.MaaTouch.App
         stream = self.adb_shell(
-            [f'CLASSPATH={self.config.MAATOUCH_FILEPATH_REMOTE}', 'app_process', '/', 'com.shxyke.MaaTouch.App'],
+            ['CLASSPATH=/data/local/tmp/maatouch', 'app_process', '/', 'com.shxyke.MaaTouch.App'],
             stream=True,
             recvall=False
         )
@@ -253,8 +226,6 @@ class MaaTouch(Connection):
         # _, pid = out.split(" ")
         # self._maatouch_pid = pid
 
-        # Timeout 2s for sync
-        stream.settimeout(2)
         logger.info(
             "MaaTouch stream connected"
         )
@@ -270,52 +241,7 @@ class MaaTouch(Connection):
         byte_content = content.encode('utf-8')
         self._maatouch_stream.sendall(byte_content)
         self._maatouch_stream.recv(0)
-        self.sleep(builder.delay / 1000 + builder.DEFAULT_DELAY)
-        builder.clear()
-
-    def maatouch_send_sync(self, builder: MaatouchBuilder, mode=2):
-        # Set inject mode to the last command
-        for command in builder.commands[::-1]:
-            if command.operation in ['r', 'd', 'm', 'u']:
-                command.mode = mode
-                break
-
-        # add maatouch sync command: 's <timestamp>\n'
-        timestamp = str(int(time.time() * 1000))
-        builder.commands.insert(0, Command(
-            's', text=timestamp
-        ))
-
-        # Send
-        content = builder.to_maatouch_sync()
-        # logger.info("send operation: {}".format(content.replace("\n", "\\n")))
-        byte_content = content.encode('utf-8')
-        self._maatouch_stream.sendall(byte_content)
-        self._maatouch_stream.recv(0)
-
-        # Wait until operations finished
-        start = time.time()
-        socket_out = self._maatouch_stream.makefile()
-        max_trial = 3
-        for n in range(3):
-            try:
-                out = socket_out.readline()
-            except socket.timeout as e:
-                raise MaaTouchSyncTimeout(str(e))
-            out = out.strip()
-            # logger.info(out)
-
-            if out == timestamp:
-                break
-            if out == 'Killed':
-                raise MaaTouchNotInstalledError('MaaTouch died, probably because version incompatible')
-            if n == max_trial - 1:
-                raise MaaTouchSyncTimeout('Too many incorrect sync response')
-            time.sleep(0.001)
-
-        # logger.info(f'Delay: {builder.delay}')
-        # logger.info(f'Waiting control {time.time() - start}')
-        self.sleep(builder.DEFAULT_DELAY)
+        self.sleep(self.maatouch_builder.delay / 1000 + builder.DEFAULT_DELAY)
         builder.clear()
 
     def maatouch_install(self):
@@ -331,31 +257,30 @@ class MaaTouch(Connection):
         builder = self.maatouch_builder
         builder.down(x, y).commit()
         builder.up().commit()
-        builder.send_sync()
+        builder.send()
 
     @retry
     def long_click_maatouch(self, x, y, duration=1.0):
         duration = int(duration * 1000)
         builder = self.maatouch_builder
-        builder.down(x, y).wait(duration).commit()
+        builder.down(x, y).commit().wait(duration)
         builder.up().commit()
-        builder.send_sync()
+        builder.send()
 
     @retry
     def swipe_maatouch(self, p1, p2):
         points = insert_swipe(p0=p1, p3=p2)
         builder = self.maatouch_builder
 
-        builder.down(*points[0]).wait(10).commit()
-        builder.send_sync()
+        builder.down(*points[0]).commit()
+        builder.send()
 
         for point in points[1:]:
-            builder.move(*point).wait(10)
-        builder.commit()
-        builder.send_sync()
+            builder.move(*point).commit().wait(10)
+        builder.send()
 
         builder.up().commit()
-        builder.send_sync()
+        builder.send()
 
     @retry
     def drag_maatouch(self, p1, p2, point_random=(-10, -10, 10, 10)):
@@ -364,22 +289,16 @@ class MaaTouch(Connection):
         points = insert_swipe(p0=p1, p3=p2, speed=20)
         builder = self.maatouch_builder
 
-        builder.down(*points[0]).commit().wait(10)
-        builder.send_sync()
+        builder.down(*points[0]).commit()
+        builder.send()
 
         for point in points[1:]:
             builder.move(*point).commit().wait(10)
-        builder.send_sync()
+        builder.send()
 
         builder.move(*p2).commit().wait(140)
         builder.move(*p2).commit().wait(140)
-        builder.send_sync()
+        builder.send()
 
         builder.up().commit()
-        builder.send_sync()
-
-    @retry
-    def reset_maatouch(self):
-        builder = self.maatouch_builder
-        builder.reset().commit()
-        builder.send_sync()
+        builder.send()

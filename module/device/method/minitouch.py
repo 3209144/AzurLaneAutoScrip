@@ -86,8 +86,6 @@ def insert_swipe(p0, p3, speed=15, min_distance=10):
         distance = np.linalg.norm(np.subtract(points[1:], points[0]), axis=1)
         mask = np.append(True, distance > min_distance)
         points = np.array(points)[mask].tolist()
-        if len(points) <= 1:
-            points = [p0, p3]
     else:
         points = [p0, p3]
 
@@ -102,9 +100,7 @@ class Command:
             x: int = 0,
             y: int = 0,
             ms: int = 10,
-            pressure: int = 100,
-            mode: int = 0,
-            text: str = ''
+            pressure: int = 100
     ):
         """
         See https://github.com/openstf/minitouch#writable-to-the-socket
@@ -116,8 +112,6 @@ class Command:
             y:
             ms:
             pressure:
-            mode:
-            text:
         """
         self.operation = operation
         self.contact = contact
@@ -125,8 +119,6 @@ class Command:
         self.y = y
         self.ms = ms
         self.pressure = pressure
-        self.mode = mode
-        self.text = text
 
     def to_minitouch(self) -> str:
         """
@@ -144,36 +136,6 @@ class Command:
             return f'{self.operation} {self.contact}\n'
         elif self.operation == 'w':
             return f'{self.operation} {self.ms}\n'
-        else:
-            return ''
-
-    def to_maatouch_sync(self):
-        if self.operation == 'c':
-            return f'{self.operation}\n'
-        elif self.operation == 'r':
-            if self.mode:
-                return f'{self.operation} {self.mode}\n'
-            else:
-                return f'{self.operation}\n'
-        elif self.operation == 'd':
-            if self.mode:
-                return f'{self.operation} {self.contact} {self.x} {self.y} {self.pressure} {self.mode}\n'
-            else:
-                return f'{self.operation} {self.contact} {self.x} {self.y} {self.pressure}\n'
-        elif self.operation == 'm':
-            if self.mode:
-                return f'{self.operation} {self.contact} {self.x} {self.y} {self.pressure} {self.mode}\n'
-            else:
-                return f'{self.operation} {self.contact} {self.x} {self.y} {self.pressure}\n'
-        elif self.operation == 'u':
-            if self.mode:
-                return f'{self.operation} {self.contact} {self.mode}\n'
-            else:
-                return f'{self.operation} {self.ms}\n'
-        elif self.operation == 'w':
-            return f'{self.operation} {self.ms}\n'
-        elif self.operation == 's':
-            return f'{self.operation} {self.text}\n'
         else:
             return ''
 
@@ -222,12 +184,7 @@ class CommandBuilder:
     max_x = 1280
     max_y = 720
 
-    def __init__(
-            self,
-            device,
-            contact=0,
-            handle_orientation=True,
-    ):
+    def __init__(self, device, contact=0, handle_orientation=True):
         """
         Args:
             device:
@@ -273,88 +230,50 @@ class CommandBuilder:
 
     def commit(self):
         """ add minitouch command: 'c\n' """
-        self.commands.append(Command(
-            'c'
-        ))
+        self.commands.append(Command('c'))
         return self
 
-    def reset(self, mode=0):
+    def reset(self):
         """ add minitouch command: 'r\n' """
-        self.commands.append(Command(
-            'r', mode=mode
-        ))
+        self.commands.append(Command('r'))
         return self
 
     def wait(self, ms=10):
         """ add minitouch command: 'w <ms>\n' """
-        self.commands.append(Command(
-            'w', ms=ms
-        ))
+        self.commands.append(Command('w', ms=ms))
         self.delay += ms
         return self
 
-    def up(self, mode=0):
+    def up(self):
         """ add minitouch command: 'u <contact>\n' """
-        self.commands.append(Command(
-            'u', contact=self.contact, mode=mode
-        ))
+        self.commands.append(Command('u', contact=self.contact))
         return self
 
-    def down(self, x, y, pressure=100, mode=0):
+    def down(self, x, y, pressure=100):
         """ add minitouch command: 'd <contact> <x> <y> <pressure>\n' """
         x, y = self.convert(x, y)
-        self.commands.append(Command(
-            'd', x=x, y=y, contact=self.contact, pressure=pressure, mode=mode
-        ))
+        self.commands.append(Command('d', x=x, y=y, contact=self.contact, pressure=pressure))
         return self
 
-    def move(self, x, y, pressure=100, mode=0):
+    def move(self, x, y, pressure=100):
         """ add minitouch command: 'm <contact> <x> <y> <pressure>\n' """
         x, y = self.convert(x, y)
-        self.commands.append(Command(
-            'm', x=x, y=y, contact=self.contact, pressure=pressure, mode=mode
-        ))
+        self.commands.append(Command('m', x=x, y=y, contact=self.contact, pressure=pressure))
         return self
 
     def clear(self):
         """ clear current commands """
         self.commands = []
         self.delay = 0
-        return self
 
     def to_minitouch(self) -> str:
-        out = ''.join([command.to_minitouch() for command in self.commands])
-        self._check_empty(out)
-        return out
-
-    def to_maatouch_sync(self) -> str:
-        out = ''.join([command.to_maatouch_sync() for command in self.commands])
-        self._check_empty(out)
-        return out
+        return ''.join([command.to_minitouch() for command in self.commands])
 
     def to_atx_agent(self) -> List[str]:
-        out = [command.to_atx_agent(self.max_x, self.max_y) for command in self.commands]
-        self._check_empty(out)
-        return out
+        return [command.to_atx_agent(self.max_x, self.max_y) for command in self.commands]
 
     def send(self):
         return self.device.minitouch_send(builder=self)
-
-    def _check_empty(self, text=None):
-        """
-        A valid command list must includes some operations not just committing
-
-        Returns:
-            bool: If command is empty
-        """
-        empty = True
-        for command in self.commands:
-            if command.operation not in ['c', 'w', 's']:
-                empty = False
-                break
-        if empty:
-            logger.warning(f'Command list empty, sending it may cause unexpected behaviour: {text}')
-        return empty
 
 
 class MinitouchNotInstalledError(Exception):
