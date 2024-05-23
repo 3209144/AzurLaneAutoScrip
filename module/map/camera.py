@@ -265,9 +265,23 @@ class Camera(MapOperation):
         confirm_timer = Timer(5, count=10).start()
         while 1:
             try:
-                success = self._update(camera=camera)
-                if success:
-                    break
+                success = self._update_view()
+                if not success:
+                    continue
+                logger.attr('view.center_offset', self.view.center_offset)
+                if wait_swipe and not swipe_wait_timeout.reached() and success:
+                    # If first screenshot is still prev view
+                    # must getting out of grid center once and re-focusing center
+                    if is_still_prev():
+                        swiped = False
+                    if is_grid_center():
+                        if swiped:
+                            break
+                    else:
+                        swiped = True
+                    # No error
+                    error_confirm.reset()
+                    continue
                 else:
                     confirm_timer.reset()
                     continue
