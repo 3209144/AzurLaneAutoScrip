@@ -3,3 +3,6 @@ rules:
   - base: master
     upstream: LmeSzinc:master
     mergeMethod: merge
+  - base: dev
+    upstream: LmeSzinc:master
+    mergeMethod: merge
