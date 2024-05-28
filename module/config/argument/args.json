@@ -1969,7 +1969,7 @@
         "value": "12-4"
       },
       "Event": {
-        "type": "state",
+        "type": "select",
         "value": "campaign_main",
         "option": [
           "event_20200227_cn",
@@ -2419,7 +2419,7 @@
         "value": "12-4"
       },
       "Event": {
-        "type": "state",
+        "type": "select",
         "value": "campaign_main",
         "option": [
           "event_20200227_cn",
