@@ -52,14 +52,14 @@ GemsFarming:
 Event:
   Campaign:
     Mode: normal
-#    Event:
-#      type: state
+    Event:
+      type: select
     AmbushEvade: true
 Event2:
   Campaign:
     Mode: normal
-#    Event:
-#      type: state
+    Event:
+      type: select
     AmbushEvade: true
 EventA:
   Scheduler:
