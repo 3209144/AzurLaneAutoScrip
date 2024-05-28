@@ -3,6 +3,6 @@ rules:
   - base: master
     upstream: LmeSzinc:master
     mergeMethod: merge
-  - base: dev
-    upstream: LmeSzinc:master
+  - base: Alas-with-Dashboard
+    upstream: Zuosizhu:master
     mergeMethod: merge
