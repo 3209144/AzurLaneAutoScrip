@@ -2038,6 +2038,7 @@
           "event_20240425_cn",
           "event_20240521_cn"
         ],
+        "display": "hide",
         "option_bold": [
           "event_20230525_cn",
           "event_20240521_cn"
@@ -2488,6 +2489,7 @@
           "event_20240425_cn",
           "event_20240521_cn"
         ],
+        "display": "hide",
         "option_bold": [
           "event_20230525_cn",
           "event_20240521_cn"
