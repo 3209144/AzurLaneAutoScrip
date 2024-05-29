@@ -12,6 +12,3 @@ rules:
   - base: mengnian
     upstream: MengNianxiaoyao:mydev
     mergeMethod: merge  
-  - base: 20230309
-    upstream: Zuosizhu:master
-    mergeMethod: merge 
