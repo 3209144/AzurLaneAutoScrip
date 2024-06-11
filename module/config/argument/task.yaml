@@ -335,3 +335,5 @@ Tool:
       - AzurLaneUncensored
     GameManager:
       - GameManager
+      - GGHandler
+      - PowerLimit
