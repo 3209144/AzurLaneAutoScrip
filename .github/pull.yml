@@ -5,10 +5,7 @@ rules:
     mergeMethod: merge
   - base: Alas-with-Dashboard
     upstream: Zuosizhu:master
-    mergeMethod: merge  
-  - base: dev
-    upstream: LmeSzinc:master
-    mergeMethod: merge  
+    mergeMethod: merge    
   - base: mengnian
     upstream: MengNianxiaoyao:mydev
     mergeMethod: merge  
