@@ -280,9 +280,12 @@ GemsFarming:
     option: [ disabled, ship, ship_equip ]
   CommonDD:
     value: any
-
-    option: [ any, favourite, aulick_or_foote , cassin_or_downes, z20_or_z21 ]
-
+    option: [ any, aulick_or_foote , cassin_or_downes ]
+  ALLowLowVanguardLevel: true
+  FleetNumberInHardMode:
+    value: 0
+    option: [ 0, 1, 2 ]
+  StopIFAutoNotEnsured: true
   CommissionLimit: true
 FlagshipFilter:
   Sort:
@@ -342,9 +345,6 @@ RaidDaily:
 MaritimeEscort:
   Enable: true
 Coalition:
-  Mode:
-    value: hard
-    option: [ easy, normal, hard, ex ]
   Fleet:
     value: single
     option: [ single, multi ]
@@ -712,19 +712,7 @@ OpsiExplore:
   ForceRun: false
   LastZone: 0
 OpsiShop:
-  PresetFilter:
-    value: max_benefit_meta
-    option:
-      - max_benefit
-      - max_benefit_meta
-      - no_meta
-      - all
-      - custom
-  CustomFilter: |-
-    LoggerAbyssalT6 > LoggerAbyssalT5 > LoggerObscure > LoggerAbyssalT4 > ActionPoint > PurpleCoins
-    > GearDesignPlanT3 > PlateRandomT4 > DevelopmentMaterialT3 > GearDesignPlanT2 > GearPart
-    > OrdnanceTestingReportT3 > OrdnanceTestingReportT2 > DevelopmentMaterialT2 > OrdnanceTestingReportT1
-    > METARedBook > CrystallizedHeatResistantSteel > NanoceramicAlloy > NeuroplasticProstheticArm > SupercavitationGenerator
+  BuySupply: true
 OpsiVoucher:
   Filter: |-
     LoggerAbyssal > LoggerObscure > Book > Coin > Fragment
