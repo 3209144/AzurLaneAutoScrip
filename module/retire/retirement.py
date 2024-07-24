@@ -31,10 +31,6 @@ class Retirement(Enhancement, QuickRetireSettingHandler):
     # From MapOperation
     map_cat_attack_timer = Timer(2)
 
-    @property
-    def retire_keep_common_cv(self):
-        return self.config.is_task_enabled('GemsFarming')
-
     def _retirement_choose(self, amount=10, target_rarity=('N',)):
         """
         Args:
@@ -113,7 +109,7 @@ class Retirement(Enhancement, QuickRetireSettingHandler):
                 else:
                     self.interval_clear(SHIP_CONFIRM)
             if self.appear(SHIP_CONFIRM_2, offset=(30, 30), interval=2):
-                if self.retire_keep_common_cv and not self._have_kept_cv:
+                if self.config.RETIRE_KEEP_COMMON_CV and not self._have_kept_cv:
                     self.keep_one_common_cv()
                 self.device.click(SHIP_CONFIRM_2)
                 self.interval_clear(GET_ITEMS_1)
@@ -170,7 +166,7 @@ class Retirement(Enhancement, QuickRetireSettingHandler):
         end = False
         total = 0
 
-        if self.retire_keep_common_cv:
+        if self.config.RETIRE_KEEP_COMMON_CV:
             self._have_kept_cv = False
 
         while 1:
@@ -245,7 +241,7 @@ class Retirement(Enhancement, QuickRetireSettingHandler):
         self.dock_favourite_set(False)
         total = 0
 
-        if self.retire_keep_common_cv:
+        if self.config.RETIRE_KEEP_COMMON_CV:
             self._have_kept_cv = False
 
         while amount:

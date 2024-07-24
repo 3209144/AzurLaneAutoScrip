@@ -356,6 +356,7 @@ class ManualConfig:
     """
     DOCK_FULL_TRIGGERED = False
     GET_SHIP_TRIGGERED = False
+    RETIRE_KEEP_COMMON_CV = False
     COMMON_CV_THRESHOLD = 0.9
 
     """
