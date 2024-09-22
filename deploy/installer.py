@@ -14,7 +14,7 @@ class Installer(GitManager, PipManager, AdbManager, AppManager, AlasManager):
     def install(self):
         try:
             self.git_install()
-            self.alas_kill()
+            # self.alas_kill()
             self.pip_install()
             self.app_update()
             self.adb_install()
