@@ -1964,8 +1964,7 @@
           "calculate",
           "ignore",
           "calculate_ignore"
-        ],
-        "display": "hide"
+        ]
       },
       "Fleet1Value": {
         "type": "input",

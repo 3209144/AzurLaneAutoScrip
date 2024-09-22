@@ -139,10 +139,6 @@ class GemsFarming(CampaignRun, FleetEquipment, Dock):
 
         self.campaign: GemsCampaign = GemsCampaign(device=self.campaign.device, config=self.campaign.config)
         self.campaign.config.override(EnemyPriority_EnemyScaleBalanceWeight='S1_enemy_first')
-        if self.change_flagship or self.change_vanguard:
-            self.campaign.config.override(Emotion_Mode='calculate')
-        else:
-            self.campaign.config.override(Emotion_Mode='ignore')
 
     @property
     def change_flagship(self):
@@ -681,7 +677,7 @@ class GemsFarming(CampaignRun, FleetEquipment, Dock):
                 success = self.vanguard_change()
                 if self.change_flagship:
                     success = success and self.flagship_change()
-                if success and (self.change_flagship or self.change_vanguard):
+                if success and self.config.Emotion_Mode != 'ignore':
                     self.set_emotion(self._new_emotion_value)
 
                 self._trigger_lv32 = False
