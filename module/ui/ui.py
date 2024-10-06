@@ -1,9 +1,10 @@
 from module.base.button import Button
 from module.base.decorator import run_once
 from module.base.timer import Timer
+from module.coalition.assets import FLEET_PREPARATION as COALITION_FLEET_PREPARATION
 from module.combat.assets import GET_ITEMS_1, GET_ITEMS_2, GET_SHIP
 from module.exception import (GameNotRunningError, GamePageUnknownError,
-                              RequestHumanTakeover)
+                              GameTooManyClickError)
 from module.exercise.assets import EXERCISE_PREPARATION
 from module.freebies.assets import PURCHASE_POPUP
 from module.handler.assets import (AUTO_SEARCH_MENU_EXIT, BATTLE_PASS_NOTICE, GAME_TIPS, LOGIN_ANNOUNCE,
@@ -18,7 +19,7 @@ from module.ocr.ocr import Ocr
 from module.os_handler.assets import (AUTO_SEARCH_REWARD, EXCHANGE_CHECK, RESET_FLEET_PREPARATION, RESET_TICKET_POPUP)
 from module.raid.assets import *
 from module.ui.assets import *
-from module.ui.page import (Page, page_campaign, page_event, page_main, page_main_white, page_sp)
+from module.ui.page import (Page, page_campaign, page_event, page_main, page_sp, page_main_white)
 from module.ui_white.assets import *
 
 
@@ -429,7 +430,7 @@ class UI(InfoHandler):
             logger.critical("Possible reason #1: You haven't set any fleets in operation siren")
             logger.critical(
                 "Possible reason #2: Your fleets haven't satisfied the level restrictions in operation siren")
-            raise RequestHumanTakeover
+            raise GameTooManyClickError
         if self.appear_then_click(RESET_TICKET_POPUP, offset=(30, 30), interval=3):
             return True
         if self.appear_then_click(RESET_FLEET_PREPARATION, offset=(30, 30), interval=3):
@@ -497,7 +498,8 @@ class UI(InfoHandler):
         # Campaign preparation
         if self.appear(MAP_PREPARATION, offset=(30, 30), interval=3) \
                 or self.appear(FLEET_PREPARATION, offset=(20, 50), interval=3) \
-                or self.appear(RAID_FLEET_PREPARATION, offset=(30, 30), interval=3):
+                or self.appear(RAID_FLEET_PREPARATION, offset=(30, 30), interval=3) \
+                or self.appear(COALITION_FLEET_PREPARATION, offset=(30, 30), interval=3):
             self.device.click(MAP_PREPARATION_CANCEL)
             return True
         if self.appear_then_click(AUTO_SEARCH_MENU_EXIT, offset=(200, 30), interval=3):

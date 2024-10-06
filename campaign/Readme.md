@@ -197,6 +197,7 @@ To add a new event, add a new row in here, and run `python -m module.config.conf
 | 20240521 | event 20240521 cn | Light of the Martyrium | 绽放于辉光之城 | Light of the Martyrium | 赫輝のマルティリウム | - |
 | 20240523 | event 20230525 cn | Confluence of Nothingness | - | - | -                                    | 空相交會點 |
 | 20240613   | event 20201012 cn    | Sundered Blue   | -       | -       | -     |   復刻劃破海空之翼       |
+<<<<<<< HEAD
 | 20240620   | event 20220428 cn | Rondo at Rainbow's End Rerun | 复刻虹彩的终幕曲 | Rondo at Rainbow's End Rerun | 吟ずる瑠璃の楽章（復刻） | - |
 | 20240627 | event 20231026 cn        | Tempesta and the Fountain of Youth           | -   | -  | -    | 飓風與青春之泉 |
 | 20240627 | coalition 20240627 | Welcome to Little Academy | 欢迎来到童心学院 | Welcome to Little Academy | リトル学園へようこそ | - |
@@ -210,3 +211,6 @@ To add a new event, add a new row in here, and run `python -m module.config.conf
 | 20240829 | event 20220324 cn | Virtual Tower | - | - | - | 復刻虛像構築之塔 |
 | 20240912 | event 20240912 cn | Ode of Everblooming Crimson | 唤醒苍红之炎 | Ode of Everblooming Crimson | 絳染む丹華の詠歌 | - |
 | 20240919 | event 20230914 cn | Effulgence Before Eclipse   | - | -  | - | 須臾望月抄    |
+=======
+| 20240620   | event 20220428 cn | Rondo at Rainbow's End Rerun | 复刻虹彩的终幕曲 | Rondo at Rainbow's End Rerun | 吟ずる瑠璃の楽章（復刻） | - |
+>>>>>>> smallkai
