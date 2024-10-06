@@ -6,6 +6,7 @@ from module.coalition.combat import CoalitionCombat
 from module.exception import ScriptError, ScriptEnd
 from module.logger import logger
 from module.ocr.ocr import Digit
+from  module.log_res.log_res import LogRes
 
 
 class AcademyPtOcr(Digit):
@@ -32,6 +33,7 @@ class Coalition(CoalitionCombat, CampaignEvent):
         Returns:
             int: PT amount, or 0 if unable to parse
         """
+
         event = self.config.Campaign_Event
         if event == 'coalition_20230323':
             ocr = Digit(FROSTFALL_OCR_PT, name='OCR_PT', letter=(198, 158, 82), threshold=128)
@@ -42,6 +44,7 @@ class Coalition(CoalitionCombat, CampaignEvent):
             raise ScriptError
 
         pt = ocr.ocr(self.device.image)
+
         return pt
 
     def triggered_stop_condition(self, oil_check=False, pt_check=False):
