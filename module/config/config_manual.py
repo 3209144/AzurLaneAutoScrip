@@ -114,6 +114,7 @@ class ManualConfig:
     """
     module.map.fleet
     """
+    MAP_HAS_MODE_SWITCH = False  # event_20240725_cn has mode switch in map preparation
     MAP_HAS_CLEAR_PERCENTAGE = True
     MAP_HAS_WALK_SPEEDUP = False
     MAP_HAS_AMBUSH = True
@@ -140,6 +141,8 @@ class ManualConfig:
     MAP_ENEMY_GENRE_SIMILARITY = 0.85
     MAP_SIREN_MOVE_WAIT = 1.5  # The enemy moving takes about 1.2 ~ 1.5s.
     MAP_SIREN_COUNT = 0
+    MAP_SIREN_HAS_BOSS_ICON = False  # Anonymous siren with small boss icon at bottom-right
+    MAP_SIREN_HAS_BOSS_ICON_SMALL = False
     MAP_HAS_MYSTERY = True
     MAP_MYSTERY_MAP_CLICK = True
     MAP_MYSTERY_HAS_CARRIER = False
@@ -180,7 +183,7 @@ class ManualConfig:
     # Use the green arrow on current fleet to decide if fleet arrived a certain grid
     MAP_WALK_USE_CURRENT_FLEET = False
     # Optimize walk path, reducing ambushes
-    MAP_WALK_OPTIMIZE = True
+    MAP_WALK_TURNING_OPTIMIZE = True
     # Optimize swipe path, reducing swipes turn info clicks.
     MAP_SWIPE_OPTIMIZE = True
     # Swipe after boss appear. Could avoid map detection error when camera is on edge.
@@ -352,7 +355,6 @@ class ManualConfig:
     """
     DOCK_FULL_TRIGGERED = False
     GET_SHIP_TRIGGERED = False
-    RETIRE_KEEP_COMMON_CV = False
     COMMON_CV_THRESHOLD = 0.9
 
     """

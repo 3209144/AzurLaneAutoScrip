@@ -53,9 +53,10 @@ class DockOld(Equipment):
         self.ui_click(DOCK_FILTER, appear_button=DOCK_CHECK, check_button=DOCK_FILTER_CONFIRM,
                       skip_first_screenshot=True)
 
-    def dock_filter_confirm(self):
+    def dock_filter_confirm(self, wait_loading=True):
         self.ui_click(DOCK_FILTER_CONFIRM, check_button=DOCK_CHECK, skip_first_screenshot=True)
-        self.handle_dock_cards_loading()
+        if wait_loading:
+            self.handle_dock_cards_loading()
 
     @cached_property
     def dock_filter(self) -> Setting:
@@ -103,7 +104,15 @@ class DockOld(Equipment):
         )
         return setting
 
-    def dock_filter_set(self, sort='level', index='all', faction='all', rarity='all', extra='no_limit'):
+    def dock_filter_set(
+            self,
+            sort='level',
+            index='all',
+            faction='all',
+            rarity='all',
+            extra='no_limit',
+            wait_loading=True
+    ):
         """
         A faster filter set function.
 
@@ -122,7 +131,7 @@ class DockOld(Equipment):
         """
         self.dock_filter_enter()
         self.dock_filter.set(sort=sort, index=index, faction=faction, rarity=rarity, extra=extra)
-        self.dock_filter_confirm()
+        self.dock_filter_confirm(wait_loading=wait_loading)
 
     def dock_select_one(self, button, skip_first_screenshot=True):
         """

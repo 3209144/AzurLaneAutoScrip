@@ -15,6 +15,10 @@ from module.exception import RequestHumanTakeover
 from module.logger import logger
 
 
+def handle_unknown_host_service(e):
+    pass
+
+
 def retry(func):
     @wraps(func)
     def retry_wrapper(self, *args, **kwargs):
@@ -59,6 +63,11 @@ def retry(func):
             except AdbError as e:
                 if handle_adb_error(e):
                     def init():
+                        self.adb_reconnect()
+                        del_cached_property(self, '_maatouch_builder')
+                elif handle_unknown_host_service(e):
+                    def init():
+                        self.adb_start_server()
                         self.adb_reconnect()
                         del_cached_property(self, '_maatouch_builder')
                 else:
@@ -294,7 +303,7 @@ class MaaTouch(Connection):
         self._maatouch_stream.recv(0)
 
         # Wait until operations finished
-        start = time.time()
+        # start = time.time()
         socket_out = self._maatouch_stream.makefile()
         max_trial = 3
         for n in range(3):
