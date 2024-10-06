@@ -1,9 +1,5 @@
 import traceback
 
-
-from module.coalition.assets import *
-from module.raid.assets import *
-
 from module.ui.assets import *
 from module.ui_white.assets import *
 
@@ -277,23 +273,22 @@ page_main_white.link(button=MAIN_GOTO_BUILD_WHITE, destination=page_build)
 page_mail = Page(MAIL_CHECK)
 page_mail.link(button=GOTO_MAIN_WHITE, destination=page_main)
 # Mail enter varies from different UI
-page_main_white.link(button=MAIL_ENTER_WHITE, destination=page_mail)
+# page_main.link(button=MAIL_ENTER_WHITE, destination=page_mail)
 
 # RPG event (raid_20240328)
-page_rpg_stage = Page(RPG_GOTO_STORY)
-page_rpg_story = Page(RPG_GOTO_STAGE)
-page_rpg_stage.link(button=RPG_GOTO_STORY, destination=page_rpg_story)
-page_rpg_stage.link(button=RPG_HOME, destination=page_main)
-page_rpg_story.link(button=RPG_GOTO_STAGE, destination=page_rpg_stage)
-page_rpg_story.link(button=RPG_HOME, destination=page_main)
-
-page_campaign_menu.link(button=CAMPAIGN_MENU_GOTO_EVENT, destination=page_rpg_stage)
+# page_rpg_stage = Page(RPG_GOTO_STORY)
+# page_rpg_story = Page(RPG_GOTO_STAGE)
+# page_rpg_stage.link(button=RPG_GOTO_STORY, destination=page_rpg_story)
+# page_rpg_stage.link(button=RPG_HOME, destination=page_main)
+# page_rpg_story.link(button=RPG_GOTO_STAGE, destination=page_rpg_stage)
+# page_rpg_story.link(button=RPG_HOME, destination=page_main)
+#
 # page_main.link(button=MAIN_GOTO_RAID, destination=page_rpg_stage)
-# page_main_white.link(button=MAIN_GOTO_RAID_WHITE, destination=page_rpg_stage)
-
-page_rpg_city = Page(RPG_LEAVE_CITY)
-page_rpg_city.link(button=RPG_LEAVE_CITY, destination=page_rpg_stage)
-page_rpg_city.link(button=RPG_HOME, destination=page_main)
+# # page_main_white.link(button=MAIN_GOTO_RAID_WHITE, destination=page_rpg_stage)
+#
+# page_rpg_city = Page(RPG_LEAVE_CITY)
+# page_rpg_city.link(button=RPG_LEAVE_CITY, destination=page_rpg_stage)
+# page_rpg_city.link(button=RPG_HOME, destination=page_main)
 
 # Keep page_rpg_stage, so Raid can import
-# page_rpg_stage = page_raid
+page_rpg_stage = page_raid

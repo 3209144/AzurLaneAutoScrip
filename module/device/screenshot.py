@@ -13,7 +13,6 @@ from module.base.utils import get_color, image_size, limit_in, save_image
 from module.device.method.adb import Adb
 from module.device.method.ascreencap import AScreenCap
 from module.device.method.droidcast import DroidCast
-from module.device.method.ldopengl import LDOpenGL
 from module.device.method.nemu_ipc import NemuIpc
 from module.device.method.scrcpy import Scrcpy
 from module.device.method.wsa import WSA
@@ -21,7 +20,7 @@ from module.exception import RequestHumanTakeover, ScriptError
 from module.logger import logger
 
 
-class Screenshot(Adb, WSA, DroidCast, AScreenCap, Scrcpy, NemuIpc, LDOpenGL):
+class Screenshot(Adb, WSA, DroidCast, AScreenCap, Scrcpy, NemuIpc):
     _screen_size_checked = False
     _screen_black_checked = False
     _minicap_uninstalled = False
@@ -41,12 +40,7 @@ class Screenshot(Adb, WSA, DroidCast, AScreenCap, Scrcpy, NemuIpc, LDOpenGL):
             'DroidCast_raw': self.screenshot_droidcast_raw,
             'scrcpy': self.screenshot_scrcpy,
             'nemu_ipc': self.screenshot_nemu_ipc,
-            'ldopengl': self.screenshot_ldopengl,
         }
-
-    @cached_property
-    def screenshot_method_override(self) -> str:
-        return ''
 
     def screenshot(self):
         """
@@ -57,11 +51,10 @@ class Screenshot(Adb, WSA, DroidCast, AScreenCap, Scrcpy, NemuIpc, LDOpenGL):
         self._screenshot_interval.reset()
 
         for _ in range(2):
-            if self.screenshot_method_override:
-                method = self.screenshot_method_override
-            else:
-                method = self.config.Emulator_ScreenshotMethod
-            method = self.screenshot_methods.get(method, self.screenshot_adb)
+            method = self.screenshot_methods.get(
+                self.config.Emulator_ScreenshotMethod,
+                self.screenshot_adb
+            )
             self.image = method()
 
             if self.config.Emulator_ScreenshotDedithering:
@@ -163,16 +156,7 @@ class Screenshot(Adb, WSA, DroidCast, AScreenCap, Scrcpy, NemuIpc, LDOpenGL):
                 Or None for Optimization_ScreenshotInterval, 'combat' for Optimization_CombatScreenshotInterval
         """
         if interval is None:
-
-            origin = self.config.Optimization_ScreenshotInterval
-            interval = limit_in(origin, 0.1, 0.3)
-            if interval != origin:
-                logger.warning(f'Optimization.ScreenshotInterval {origin} is revised to {interval}')
-                self.config.Optimization_ScreenshotInterval = interval
-            # Allow nemu_ipc to have a lower default
-            if self.config.Emulator_ScreenshotMethod in ['nemu_ipc', 'ldopengl']:
-                interval = limit_in(origin, 0.1, 0.2)
-
+            interval = self.config.Optimization_ScreenshotInterval
         elif interval == 'combat':
             interval = self.config.Optimization_CombatScreenshotInterval
         elif isinstance(interval, (int, float)):

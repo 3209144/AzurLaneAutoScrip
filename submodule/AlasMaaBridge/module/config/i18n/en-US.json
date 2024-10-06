@@ -1,7 +1,7 @@
 {
   "Menu": {
     "Maa": {
-      "name": "MAA",
+      "name": "Menu.Maa.name",
       "help": "Menu.Maa.help"
     },
     "Tool": {
@@ -11,52 +11,52 @@
   },
   "Task": {
     "Maa": {
-      "name": "Set-up",
-      "help": "On first use, you will most likely have to configure a few things here.\nThis integration is behind (as in older version of) the standalone MAA, so some things might be outdated or not work properly; WiP"
+      "name": "Task.Maa.name",
+      "help": "Task.Maa.help"
     },
     "MaaStartup": {
-      "name": "MaaStartup",
-      "help": "cannot be disabled as it is required so ALAS can run MAA"
+      "name": "Task.MaaStartup.name",
+      "help": "Task.MaaStartup.help"
     },
     "MaaAnnihilation": {
-      "name": "Annihilation",
-      "help": "will auto Annihilations"
+      "name": "Task.MaaAnnihilation.name",
+      "help": "Task.MaaAnnihilation.help"
     },
     "MaaMaterial": {
-      "name": "Material farm",
-      "help": "farm for specific materials"
+      "name": "Task.MaaMaterial.name",
+      "help": "Task.MaaMaterial.help"
     },
     "MaaFight": {
-      "name": "Stages",
-      "help": "clear stages"
+      "name": "Task.MaaFight.name",
+      "help": "Task.MaaFight.help"
     },
     "MaaRecruit": {
-      "name": "Recruitment",
-      "help": "uses recruitment vouchers"
+      "name": "Task.MaaRecruit.name",
+      "help": "Task.MaaRecruit.help"
     },
     "MaaInfrast": {
-      "name": "Base",
-      "help": "manages your base:will swap out Operators, use drones, etc."
+      "name": "Task.MaaInfrast.name",
+      "help": "Task.MaaInfrast.help"
     },
     "MaaMall": {
-      "name": "Shop",
-      "help": "will buy items in shop"
+      "name": "Task.MaaMall.name",
+      "help": "Task.MaaMall.help"
     },
     "MaaAward": {
-      "name": "Rewards",
-      "help": "reward collector (daily/weekly, specials and mail)"
+      "name": "Task.MaaAward.name",
+      "help": "Task.MaaAward.help"
     },
     "MaaRoguelike": {
-      "name": "Roguelike (I.S.)",
-      "help": "auto for Integrated strategies"
+      "name": "Task.MaaRoguelike.name",
+      "help": "Task.MaaRoguelike.help"
     },
     "MaaReclamationAlgorithm": {
-      "name": "ReclamationAlgorithm",
-      "help": "auto for Reclamation Algorithm"
+      "name": "Task.MaaReclamationAlgorithm.name",
+      "help": "Task.MaaReclamationAlgorithm.help"
     },
     "MaaCopilot": {
-      "name": "Copilot",
-      "help": "will clear stages etc. after prewritten schema; current SSS included by default, more may be downloaded or self built"
+      "name": "Task.MaaCopilot.name",
+      "help": "Task.MaaCopilot.help"
     }
   },
   "Scheduler": {
@@ -125,16 +125,16 @@
   },
   "MaaEmulator": {
     "_info": {
-      "name": "MaaEmulator",
-      "help": "MAA integration"
+      "name": "MaaEmulator._info.name",
+      "help": "MaaEmulator._info.help"
     },
     "Serial": {
-      "name": "Serial",
-      "help": "check your emulators serial number, usually somewhere like 'details'"
+      "name": "MaaEmulator.Serial.name",
+      "help": "MaaEmulator.Serial.help"
     },
     "PackageName": {
-      "name": "Server",
-      "help": "select your server",
+      "name": "MaaEmulator.PackageName.name",
+      "help": "MaaEmulator.PackageName.help",
       "Official": "Official",
       "Bilibili": "Bilibili",
       "YoStarEN": "YoStarEN",
@@ -143,47 +143,47 @@
       "txwy": "txwy"
     },
     "MaaPath": {
-      "name": "MAA Installation Path",
-      "help": "should end on 'MAA'"
+      "name": "MaaEmulator.MaaPath.name",
+      "help": "MaaEmulator.MaaPath.help"
     },
     "TouchMethod": {
-      "name": "Touch Mode",
-      "help": "in terms of compatibility usually minitouch>>>adb, while maatouch should be even better but is experimental",
+      "name": "MaaEmulator.TouchMethod.name",
+      "help": "MaaEmulator.TouchMethod.help",
       "minitouch": "minitouch",
       "maatouch": "maatouch",
       "adb": "adb"
     },
     "DeploymentWithPause": {
-      "name": "Deployment with Pause",
-      "help": "does the deployment pause trick, experimental"
+      "name": "MaaEmulator.DeploymentWithPause.name",
+      "help": "MaaEmulator.DeploymentWithPause.help"
     }
   },
   "MaaRecord": {
     "_info": {
-      "name": "Send recorded stats",
-      "help": "sends records to 3rd party sites (material drops, recruitment, banner pull etc.), might require respective account"
+      "name": "MaaRecord._info.name",
+      "help": "MaaRecord._info.help"
     },
     "ReportToPenguin": {
-      "name": "Report to Penguin-Stats",
-      "help": "https://penguin-stats.io/"
+      "name": "MaaRecord.ReportToPenguin.name",
+      "help": "MaaRecord.ReportToPenguin.help"
     },
     "PenguinID": {
-      "name": "PenguinID",
-      "help": "ID for your Penguin Stats account"
+      "name": "MaaRecord.PenguinID.name",
+      "help": "MaaRecord.PenguinID.help"
     },
     "ReportToYiTuLiu": {
-      "name": "Report to YiTuLiu",
-      "help": "https://ark.yituliu.cn/"
+      "name": "MaaRecord.ReportToYiTuLiu.name",
+      "help": "MaaRecord.ReportToYiTuLiu.help"
     }
   },
   "MaaFight": {
     "_info": {
-      "name": "Combat",
-      "help": "select stages you wish to auto"
+      "name": "MaaFight._info.name",
+      "help": "MaaFight._info.help"
     },
     "Stage": {
-      "name": "Stage name",
-      "help": "",
+      "name": "MaaFight.Stage.name",
+      "help": "MaaFight.Stage.help",
       "last": "last",
       "1-7": "1-7",
       "LS-6": "LS-6",
@@ -202,31 +202,31 @@
       "custom": "custom"
     },
     "CustomStage": {
-      "name": "Custom Stage",
-      "help": "enter name of stage"
+      "name": "MaaFight.CustomStage.name",
+      "help": "MaaFight.CustomStage.help"
     },
     "MedicineTactics": {
-      "name": "Sanity packs usage",
-      "help": "no use = don't use any; expiring = only the yellow ones; run out= red ones",
+      "name": "MaaFight.MedicineTactics.name",
+      "help": "MaaFight.MedicineTactics.help",
       "no_use": "no_use",
       "expiring": "expiring",
       "run_out": "run_out"
     },
     "Medicine": {
-      "name": "Sanity packs",
-      "help": "use sanity packs if not enough sanity; WiP"
+      "name": "MaaFight.Medicine.name",
+      "help": "MaaFight.Medicine.help"
     },
     "Stone": {
-      "name": "Originium",
-      "help": "use originium if not enough sanity; WiP"
+      "name": "MaaFight.Stone.name",
+      "help": "MaaFight.Stone.help"
     },
     "Times": {
-      "name": "Repeat",
-      "help": "how often this fight should be done, e. g. you want to run 1-7 from 135 Sanity to lowest amount, using in-game repeat stages (= series setting) you would want to set series 5 and repeat 4 (6*5*4= 120) and then reconfigure"
+      "name": "MaaFight.Times.name",
+      "help": "MaaFight.Times.help"
     },
     "Series": {
-      "name": "Series",
-      "help": "arknights native repeat stage option",
+      "name": "MaaFight.Series.name",
+      "help": "MaaFight.Series.help",
       "1": "1",
       "2": "2",
       "3": "3",
@@ -235,25 +235,25 @@
       "6": "6"
     },
     "Drops": {
-      "name": "Material drop",
+      "name": "MaaFight.Drops.name",
       "help": "MaaFight.Drops.help"
     },
     "DrGrandet": {
       "name": "MaaFight.DrGrandet.name",
-      "help": "wait on sanity confirmation screen until current sanity recovers to 1 point then confirm immediately"
+      "help": "MaaFight.DrGrandet.help"
     }
   },
   "MaaFightWeekly": {
     "_info": {
-      "name": "Weekly schedule for daily rotating missions (credit/exp/furniture/red certs/chips) ",
-      "help": "outdated/WiP"
+      "name": "MaaFightWeekly._info.name",
+      "help": "MaaFightWeekly._info.help"
     },
     "Enable": {
       "name": "MaaFightWeekly.Enable.name",
       "help": "MaaFightWeekly.Enable.help"
     },
     "Monday": {
-      "name": "Monday",
+      "name": "MaaFight.Stage.name",
       "help": "MaaFight.Stage.help",
       "default": "default",
       "LS-6": "LS-6",
@@ -265,7 +265,7 @@
       "PR-B-2": "PR-B-2"
     },
     "Tuesday": {
-      "name": "Tuesday",
+      "name": "MaaFight.Stage.name",
       "help": "MaaFight.Stage.help",
       "default": "default",
       "LS-6": "LS-6",
@@ -277,7 +277,7 @@
       "PR-D-2": "PR-D-2"
     },
     "Wednesday": {
-      "name": "Wednesday",
+      "name": "MaaFight.Stage.name",
       "help": "MaaFight.Stage.help",
       "default": "default",
       "LS-6": "LS-6",
@@ -289,7 +289,7 @@
       "PR-D-2": "PR-D-2"
     },
     "Thursday": {
-      "name": "Thursday",
+      "name": "MaaFight.Stage.name",
       "help": "MaaFight.Stage.help",
       "default": "default",
       "LS-6": "LS-6",
@@ -301,7 +301,7 @@
       "PR-C-2": "PR-C-2"
     },
     "Friday": {
-      "name": "Friday",
+      "name": "MaaFight.Stage.name",
       "help": "MaaFight.Stage.help",
       "default": "default",
       "LS-6": "LS-6",
@@ -313,7 +313,7 @@
       "PR-B-2": "PR-B-2"
     },
     "Saturday": {
-      "name": "Saturday",
+      "name": "MaaFight.Stage.name",
       "help": "MaaFight.Stage.help",
       "default": "default",
       "LS-6": "LS-6",
@@ -328,7 +328,7 @@
       "PR-D-2": "PR-D-2"
     },
     "Sunday": {
-      "name": "Sunday",
+      "name": "MaaFight.Stage.name",
       "help": "MaaFight.Stage.help",
       "default": "default",
       "LS-6": "LS-6",
@@ -345,40 +345,40 @@
   },
   "MaaRecruit": {
     "_info": {
-      "name": "Recruitment",
+      "name": "MaaRecruit._info.name",
       "help": "MaaRecruit._info.help"
     },
     "Refresh": {
-      "name": "Refresh tags",
+      "name": "MaaRecruit.Refresh.name",
       "help": "MaaRecruit.Refresh.help"
     },
     "SkipRobot": {
-      "name": "Skip robots",
+      "name": "MaaRecruit.SkipRobot.name",
       "help": "MaaRecruit.SkipRobot.help"
     },
     "Select3": {
-      "name": "3 stars",
+      "name": "MaaRecruit.Select3.name",
       "help": "MaaRecruit.Select3.help"
     },
     "Select4": {
-      "name": "4 stars",
+      "name": "MaaRecruit.Select4.name",
       "help": "MaaRecruit.Select4.help"
     },
     "Select5": {
-      "name": "5 stars",
+      "name": "MaaRecruit.Select5.name",
       "help": "MaaRecruit.Select5.help"
     },
     "Level3ShortTime": {
-      "name": "3 stars short timer",
-      "help": "1h instead of 9h for 3 stars"
+      "name": "MaaRecruit.Level3ShortTime.name",
+      "help": "MaaRecruit.Level3ShortTime.help"
     },
     "Times": {
-      "name": "recruitment times",
-      "help": "how many recruitments to do"
+      "name": "MaaRecruit.Times.name",
+      "help": "MaaRecruit.Times.help"
     },
     "Expedite": {
-      "name": "Expedite",
-      "help": "skip recruitment waiting timer"
+      "name": "MaaRecruit.Expedite.name",
+      "help": "MaaRecruit.Expedite.help"
     },
     "FirstTags": {
       "name": "MaaRecruit.FirstTags.name",
@@ -394,7 +394,7 @@
   },
   "MaaInfrast": {
     "_info": {
-      "name": "Base general",
+      "name": "MaaInfrast._info.name",
       "help": "MaaInfrast._info.help"
     },
     "Facility": {
@@ -402,14 +402,14 @@
       "help": "MaaInfrast.Facility.help"
     },
     "Drones": {
-      "name": "Drone Usage",
-      "help": "what drones shall be used for",
+      "name": "MaaInfrast.Drones.name",
+      "help": "MaaInfrast.Drones.help",
       "_NotUse": "_NotUse",
-      "Money": "LMD",
-      "SyntheticJade": "Orundum",
-      "CombatRecord": "EXP",
-      "PureGold": "Pure Gold",
-      "OriginStone": "Originium Shards",
+      "Money": "Money",
+      "SyntheticJade": "SyntheticJade",
+      "CombatRecord": "CombatRecord",
+      "PureGold": "PureGold",
+      "OriginStone": "OriginStone",
       "Chip": "Chip"
     },
     "WorkThreshold": {
@@ -439,8 +439,8 @@
   },
   "MaaCustomInfrast": {
     "_info": {
-      "name": "Custom base scheduling",
-      "help": "requires self built schema or one of the prebuilts"
+      "name": "MaaCustomInfrast._info.name",
+      "help": "MaaCustomInfrast._info.help"
     },
     "Enable": {
       "name": "MaaCustomInfrast.Enable.name",
@@ -513,8 +513,7 @@
       "help": "MaaRoguelike.Theme.help",
       "Phantom": "Phantom",
       "Mizuki": "Mizuki",
-      "Sami": "Sami",
-      "Sarkaz": "Sarkaz"
+      "Sami": "Sami"
     },
     "Mode": {
       "name": "MaaRoguelike.Mode.name",
@@ -538,35 +537,31 @@
     "Squad": {
       "name": "MaaRoguelike.Squad.name",
       "help": "MaaRoguelike.Squad.help",
-      "魂灵护送分队": "Soul Escort (Sarkaz)",
-      "博闻广记分队": "Well-Informed (Sarkaz)",
-      "蓝图测绘分队": "Blueprint Surveying (Sarkaz)",
-      "因地制宜分队": "Adapting To Local Conditions (Sarkaz)",
-      "永恒狩猎分队": "Eternal Hunting (Sami)",
-      "生活至上分队": "Life Prioritizing (Sami)",
-      "科学主义分队": "Scientific Thinking (Sami)",
-      "特训分队": "Special Training (Sami)",
-      "心胜于物分队": "Mind Over Matter (Mizuki)",
-      "物尽其用分队": "Resourceful (Mizuki)",
-      "以人为本分队": "People-Oriented (Mizuki)",
-      "指挥分队": "Leader",
-      "集群分队": "Gathering",
-      "后勤分队": "Support",
-      "矛头分队": "Spearhead",
-      "突击战术分队": "Tactical Assault",
-      "堡垒战术分队": "Tactical Fortification",
-      "远程战术分队": "Tactical Ranged",
-      "破坏战术分队": "Tactical Destruction",
-      "研究分队": "Research (Phantom, Mizuki)",
-      "高规格分队": "First-Class"
+      "永恒狩猎分队": "永恒狩猎分队",
+      "生活至上分队": "生活至上分队",
+      "科学主义分队": "科学主义分队",
+      "特训分队": "特训分队",
+      "心胜于物分队": "心胜于物分队",
+      "物尽其用分队": "物尽其用分队",
+      "以人为本分队": "以人为本分队",
+      "指挥分队": "指挥分队",
+      "集群分队": "集群分队",
+      "后勤分队": "后勤分队",
+      "矛头分队": "矛头分队",
+      "突击战术分队": "突击战术分队",
+      "堡垒战术分队": "堡垒战术分队",
+      "远程战术分队": "远程战术分队",
+      "破坏战术分队": "破坏战术分队",
+      "研究分队": "研究分队",
+      "高规格分队": "高规格分队"
     },
     "Roles": {
-      "name": "Starting Operators",
-      "help": "",
-      "先手必胜": "First Move Advantage",
-      "稳扎稳打": "Slow and Steady Wins the Race",
-      "取长补短": "Overcoming Your Weaknesses",
-      "随心所欲": "As Your Heart Desires"
+      "name": "MaaRoguelike.Roles.name",
+      "help": "MaaRoguelike.Roles.help",
+      "先手必胜": "先手必胜",
+      "稳扎稳打": "稳扎稳打",
+      "取长补短": "取长补短",
+      "随心所欲": "随心所欲"
     },
     "CoreChar": {
       "name": "MaaRoguelike.CoreChar.name",
@@ -606,7 +601,7 @@
     },
     "Orundum": {
       "name": "MaaAward.Orundum.name",
-      "help": "in events where you can for example open 2 coupons and you get the one wiht higher orundum"
+      "help": "MaaAward.Orundum.help"
     },
     "Specialaccess": {
       "name": "MaaAward.Specialaccess.name",
@@ -615,12 +610,12 @@
   },
   "MaaCopilot": {
     "_info": {
-      "name": "MaaCopilot",
-      "help": "the copilot is not AI /does not work fully autonomous, but rather by predefined rules set in custom schema files"
+      "name": "MaaCopilot._info.name",
+      "help": "MaaCopilot._info.help"
     },
     "FileName": {
-      "name": "Coplilot file name",
-      "help": "by default is located wihtin the MAA installation folder under ressource and copilot, so your path should end like ...'\\MAA\\resource\\copilot'"
+      "name": "MaaCopilot.FileName.name",
+      "help": "MaaCopilot.FileName.help"
     },
     "Identify": {
       "name": "MaaCopilot.Identify.name",

@@ -242,20 +242,21 @@ class RewardDorm(UI):
 
     def dorm_collect(self):
         """
-        Collect all the coins and loves in the dorm using the one-click collect button.
+        Click all coins and loves on current screen.
+        Zoom-out dorm to detect coins and loves, because swipes in dorm may treat as dragging ships.
+        Coordinates here doesn't matter too much.
 
         Pages:
-            in: page_dorm
-            out: page_dorm
+            in: page_dorm, without info_bar
+            out: page_dorm, without info_bar
         """
         logger.hr('Dorm collect')
 
-        self.ensure_no_info_bar()
+        self.dorm_view_reset()
+
+        # Collect
+        _dorm_receive_attempt = 0
         skip_first_screenshot = True
-
-        # Set a timer to avoid Alas failing to detect the info_bar by accident.
-        timeout = Timer(1.5, count=3).start()
-
         while 1:
             if skip_first_screenshot:
                 skip_first_screenshot = False
@@ -265,18 +266,22 @@ class RewardDorm(UI):
             # Handle all popups
             if self.ui_additional():
                 continue
-
-            # Collect coins and loves through the quick collect button
-            if self.appear_then_click(DORM_QUICK_COLLECT, offset=(20, 20), interval=1):
+            if self.appear_then_click(DORM_FURNITURE_CONFIRM, offset=(30, 30), interval=3):
                 continue
 
-            # Normal end
-            if self.info_bar_count() > 0:
-                break
+            # DORM_CHECK on screen before attempt
+            # Stacked popup may fail detection as
+            # may be in progress of appearing
+            if not self.appear(DORM_CHECK):
+                continue
 
-            # Timeout end
-            if timeout.reached():
-                logger.warning('Dorm collect timeout, probably because Alas did not detect the info_bar')
+            # End
+            # - If max _dorm_receive_attempt (3+) reached
+            # - If _dorm_receive_click returns 0 (no coins/loves clicked)
+            if _dorm_receive_attempt < 3 and self._dorm_receive_click():
+                self.ensure_no_info_bar()
+                _dorm_receive_attempt += 1
+            else:
                 break
 
     @cached_property

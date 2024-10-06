@@ -1,6 +1,6 @@
-from module.device.env import IS_WINDOWS
+import sys
 
-if IS_WINDOWS:
+if sys.platform == 'win32':
     from module.device.platform.platform_windows import PlatformWindows as Platform
 else:
     from module.device.platform.platform_base import PlatformBase as Platform

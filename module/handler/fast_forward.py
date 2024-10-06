@@ -105,9 +105,8 @@ class FastForwardHandler(AutoSearchHandler):
         'B1 > B2 > B3',
         'C1 > C2 > C3',
         'D1 > D2 > D3',
-        'SP1 > SP2 > SP3 > SP4 > SP5',
+        'SP1 > SP2 > SP3 > SP4',
         'T1 > T2 > T3 > T4',
-        'HT1 > HT2 > HT3 > HT4',
     ]
     map_fleet_checked = False
 
@@ -422,7 +421,7 @@ class FastForwardHandler(AutoSearchHandler):
                 or 2x book setting is absent
 
         """
-        confirm_timer = Timer(0.3, count=1).start()
+        confirm_timer = Timer(1).start()
         clicked_threshold = 0
         while 1:
             if skip_first_screenshot:

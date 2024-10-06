@@ -2,30 +2,20 @@ from module.base.timer import Timer
 from module.campaign.assets import *
 from module.campaign.campaign_event import CampaignEvent
 from module.campaign.campaign_ocr import CampaignOcr
-from module.exception import CampaignEnd, CampaignNameError, ScriptEnd
+from module.exception import CampaignNameError, ScriptEnd
 from module.logger import logger
-from module.map.assets import WITHDRAW
-from module.map.map_operation import MapOperation
 from module.ui.assets import CAMPAIGN_CHECK
 from module.ui.switch import Switch
 
-
-class ModeSwitch(Switch):
-    def handle_additional(self, main):
-        if main.appear(WITHDRAW, offset=(30, 30)):
-            logger.warning(f'ModeSwitch: WITHDRAW appears')
-            raise CampaignNameError
-
-
-MODE_SWITCH_1 = ModeSwitch('Mode_switch_1', offset=(30, 10))
+MODE_SWITCH_1 = Switch('Mode_switch_1', offset=(30, 10))
 MODE_SWITCH_1.add_status('normal', SWITCH_1_NORMAL)
 MODE_SWITCH_1.add_status('hard', SWITCH_1_HARD)
-MODE_SWITCH_2 = ModeSwitch('Mode_switch_2', offset=(30, 10))
+MODE_SWITCH_2 = Switch('Mode_switch_2', offset=(30, 10))
 MODE_SWITCH_2.add_status('hard', SWITCH_2_HARD)
 MODE_SWITCH_2.add_status('ex', SWITCH_2_EX)
 
 
-class CampaignUI(MapOperation, CampaignEvent, CampaignOcr):
+class CampaignUI(CampaignEvent, CampaignOcr):
     ENTRANCE = Button(area=(), color=(), button=(), name='default_button')
 
     def campaign_ensure_chapter(self, index, skip_first_screenshot=True):
@@ -49,7 +39,7 @@ class CampaignUI(MapOperation, CampaignEvent, CampaignOcr):
             if self.handle_chapter_additional():
                 continue
 
-            current = self.get_chapter_index()
+            current = self.get_chapter_index(self.device.image)
 
             logger.attr("Index", current)
             diff = index - current
@@ -87,9 +77,6 @@ class CampaignUI(MapOperation, CampaignEvent, CampaignOcr):
         Returns:
             bool: If mode changed.
         """
-        if mode == 'hard':
-            self.config.override(Campaign_Mode='hard')
-
         switch_2 = MODE_SWITCH_2.get(main=self)
 
         if switch_2 == 'unknown':
@@ -113,29 +100,6 @@ class CampaignUI(MapOperation, CampaignEvent, CampaignOcr):
             else:
                 logger.warning(f'Unknown campaign mode: {mode}')
 
-    def campaign_get_mode_names(self, name):
-        """
-        Get stage names in both 'normal' and 'hard'
-        t1 -> [t1, ht1]
-        ht1 -> [t1, ht1]
-        a1 -> [a1, c1]
-
-        Args:
-            name (str):
-
-        Returns:
-            list[str]:
-        """
-        if name.startswith('t'):
-            return [f't{name[1:]}', f'ht{name[1:]}']
-        if name.startswith('ht'):
-            return [f't{name[2:]}', f'ht{name[2:]}']
-        if name.startswith('a') or name.startswith('c'):
-            return [f'a{name[1:]}', f'c{name[1:]}']
-        if name.startswith('b') or name.startswith('d'):
-            return [f'b{name[1:]}', f'd{name[1:]}']
-        return [name]
-
     def campaign_get_entrance(self, name):
         """
         Args:
@@ -144,18 +108,12 @@ class CampaignUI(MapOperation, CampaignEvent, CampaignOcr):
         Returns:
             Button:
         """
-        entrance_name = name
-        if self.config.MAP_HAS_MODE_SWITCH:
-            for mode_name in self.campaign_get_mode_names(name):
-                if mode_name in self.stage_entrance:
-                    name = mode_name
-
         if name not in self.stage_entrance:
             logger.warning(f'Stage not found: {name}')
             raise CampaignNameError
 
         entrance = self.stage_entrance[name]
-        entrance.name = entrance_name
+        entrance.name = name
         return entrance
 
     def campaign_set_chapter_main(self, chapter, mode='normal'):
@@ -174,11 +132,11 @@ class CampaignUI(MapOperation, CampaignEvent, CampaignOcr):
             return False
 
     def campaign_set_chapter_event(self, chapter, mode='normal'):
-        if chapter in ['a', 'b', 'c', 'd', 'ex_sp', 'as', 'bs', 'cs', 'ds', 't', 'ts', 'tss', 'ht', 'hts']:
+        if chapter in ['a', 'b', 'c', 'd', 'ex_sp', 'as', 'bs', 'cs', 'ds', 't', 'ts', 'tss', 'hts']:
             self.ui_goto_event()
             if chapter in ['a', 'b', 'as', 'bs', 't', 'ts', 'tss']:
                 self.campaign_ensure_mode('normal')
-            elif chapter in ['c', 'd', 'cs', 'ds', 'ht', 'hts']:
+            elif chapter in ['c', 'd', 'cs', 'ds', 'hts']:
                 self.campaign_ensure_mode('hard')
             elif chapter == 'ex_sp':
                 self.campaign_ensure_mode('ex')
@@ -212,40 +170,8 @@ class CampaignUI(MapOperation, CampaignEvent, CampaignOcr):
         else:
             logger.warning(f'Unknown campaign chapter: {name}')
 
-    def handle_campaign_ui_additional(self):
-        """
-        Returns:
-            bool: If handled
-        """
-        if self.appear(WITHDRAW, offset=(30, 30)):
-            # logger.info("WITHDRAW button found, wait until map loaded to prevent bugs in game client")
-            self.ensure_no_info_bar(timeout=2)
-            try:
-                self.withdraw()
-            except CampaignEnd:
-                pass
-            return True
-        return False
-
-    def ensure_campaign_ui(self, name, mode='normal', skip_first_screenshot=True):
-        """
-        Args:
-            name (str): Campaign name, such as '7-2', 'd3', 'sp3'.
-            mode (str): 'normal' or 'hard'.
-            skip_first_screenshot:
-
-        Raises:
-            ScriptEnd: If failed to switch after retries
-        """
-        timeout = Timer(5, count=20).start()
-        while 1:
-            if skip_first_screenshot:
-                skip_first_screenshot = False
-            else:
-                self.device.screenshot()
-
-            if timeout.reached():
-                break
+    def ensure_campaign_ui(self, name, mode='normal'):
+        for n in range(20):
             try:
                 self.campaign_set_chapter(name, mode)
                 self.ENTRANCE = self.campaign_get_entrance(name=name)
@@ -253,8 +179,7 @@ class CampaignUI(MapOperation, CampaignEvent, CampaignOcr):
             except CampaignNameError:
                 pass
 
-            if self.handle_campaign_ui_additional():
-                continue
+            self.device.screenshot()
 
         logger.warning('Campaign name error')
         raise ScriptEnd('Campaign name error')

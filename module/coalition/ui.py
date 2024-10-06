@@ -95,15 +95,9 @@ class CoalitionUI(Combat):
     def handle_fleet_preparation(self, stage, fleet):
         stage = stage.lower()
 
-
-        if event == 'coalition_20230323':
-            # No fleet switch in TC1
-            if stage in ['tc1', 'sp']:
-                return False
-        if event == 'coalition_20240627':
-            if stage in ['easy', 'sp', 'ex']:
-                return False
-
+        # No fleet switch in TC1
+        if stage in ['tc1', 'sp']:
+            return False
 
         self.coalition_ensure_fleet(fleet)
         return True
@@ -151,9 +145,6 @@ class CoalitionUI(Combat):
             # End
             if self.appear(BATTLE_PREPARATION, offset=(20, 20)):
                 break
-
-            if self.handle_guild_popup_cancel():
-                continue
 
             # Enter campaign
             if campaign_timer.reached() and self.in_coalition():
