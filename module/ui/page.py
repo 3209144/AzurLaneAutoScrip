@@ -1,5 +1,6 @@
 import traceback
 
+from module.coalition.assets import *
 from module.raid.assets import *
 from module.ui.assets import *
 from module.ui_white.assets import *
@@ -126,10 +127,20 @@ page_sp.link(button=BACK_ARROW, destination=page_campaign)
 page_campaign_menu.link(button=CAMPAIGN_MENU_GOTO_EVENT, destination=page_sp)
 page_campaign.link(button=CAMPAIGN_GOTO_EVENT, destination=page_sp)
 
-page_coalition = Page(COALITION_CHECK)
-page_coalition.link(button=GOTO_MAIN, destination=page_main)
-page_coalition.link(button=BACK_ARROW, destination=page_campaign)
+# Coalition
+# FROSTFALL
+# page_coalition = Page(COALITION_CHECK)
+# page_coalition.link(button=GOTO_MAIN, destination=page_main)
+# page_coalition.link(button=BACK_ARROW, destination=page_campaign)
+# page_campaign_menu.link(button=CAMPAIGN_MENU_GOTO_EVENT, destination=page_coalition)
+# ACADEMY
+page_coalition_menu = Page(COALITION_ACADEMY_MAIN_CHECK)
+page_coalition_menu.link(button=COALITION_ACADEMY_HOME, destination=page_main)
+page_coalition = Page(COALITION_ACADEMY_CAMPAIGN_CHECK)
+page_coalition.link(button=COALITION_ACADEMY_HOME, destination=page_main)
+page_coalition.link(button=COALITION_ACADEMY_BACK, destination=page_coalition_menu)
 page_campaign_menu.link(button=CAMPAIGN_MENU_GOTO_EVENT, destination=page_coalition)
+page_coalition_menu.link(button=COALITION_ACADEMY_GOTO_CAMPAIGN, destination=page_coalition)
 
 # Operation Siren
 page_os = Page(OS_CHECK)
@@ -270,6 +281,12 @@ page_build.link(button=GOTO_MAIN, destination=page_main)
 page_main.link(button=MAIN_GOTO_BUILD, destination=page_build)
 page_main_white.link(button=MAIN_GOTO_BUILD_WHITE, destination=page_build)
 
+# Mail
+page_mail = Page(MAIL_CHECK)
+page_mail.link(button=GOTO_MAIN_WHITE, destination=page_main)
+# Mail enter varies from different UI
+page_main_white.link(button=MAIL_ENTER_WHITE, destination=page_mail)
+
 # RPG event (raid_20240328)
 page_rpg_stage = Page(RPG_GOTO_STORY)
 page_rpg_story = Page(RPG_GOTO_STAGE)
@@ -278,9 +295,13 @@ page_rpg_stage.link(button=RPG_HOME, destination=page_main)
 page_rpg_story.link(button=RPG_GOTO_STAGE, destination=page_rpg_stage)
 page_rpg_story.link(button=RPG_HOME, destination=page_main)
 
-page_main.link(button=MAIN_GOTO_RAID, destination=page_rpg_stage)
+page_campaign_menu.link(button=CAMPAIGN_MENU_GOTO_EVENT, destination=page_rpg_stage)
+# page_main.link(button=MAIN_GOTO_RAID, destination=page_rpg_stage)
 # page_main_white.link(button=MAIN_GOTO_RAID_WHITE, destination=page_rpg_stage)
 
 page_rpg_city = Page(RPG_LEAVE_CITY)
 page_rpg_city.link(button=RPG_LEAVE_CITY, destination=page_rpg_stage)
 page_rpg_city.link(button=RPG_HOME, destination=page_main)
+
+# Keep page_rpg_stage, so Raid can import
+# page_rpg_stage = page_raid

@@ -20,7 +20,7 @@ submarine_view = Switch('Submarine_view', offset=(100, 200))
 submarine_view.add_status('on', check_button=SUBMARINE_VIEW_ON)
 submarine_view.add_status('off', check_button=SUBMARINE_VIEW_OFF)
 
-MOB_MOVE_OFFSET = (120, 120)
+MOB_MOVE_OFFSET = (120, 200)
 
 
 class StrategyHandler(InfoHandler):
@@ -35,10 +35,10 @@ class StrategyHandler(InfoHandler):
             else:
                 self.device.screenshot()
 
-            if self.appear(STRATEGY_OPENED, offset=120):
+            if self.appear(STRATEGY_OPENED, offset=200):
                 break
 
-            if self.appear(IN_MAP, interval=5) and not self.appear(STRATEGY_OPENED, offset=120):
+            if self.appear(IN_MAP, interval=5) and not self.appear(STRATEGY_OPENED, offset=200):
                 self.device.click(STRATEGY_OPEN)
                 continue
 
@@ -54,10 +54,10 @@ class StrategyHandler(InfoHandler):
             else:
                 self.device.screenshot()
 
-            if self.appear_then_click(STRATEGY_OPENED, offset=120, interval=5):
+            if self.appear_then_click(STRATEGY_OPENED, offset=200, interval=5):
                 continue
 
-            if not self.appear(STRATEGY_OPENED, offset=120):
+            if not self.appear(STRATEGY_OPENED, offset=200):
                 break
 
     def strategy_set_execute(self, formation_index=None, sub_view=None, sub_hunt=None):
@@ -123,7 +123,7 @@ class StrategyHandler(InfoHandler):
         Returns:
             int: Formation index.
         """
-        image = self.image_crop(MAP_BUFF)
+        image = self.image_crop(MAP_BUFF, copy=False)
         if TEMPLATE_FORMATION_2.match(image):
             buff = 'double_line'
         elif TEMPLATE_FORMATION_1.match(image):
@@ -156,7 +156,7 @@ class StrategyHandler(InfoHandler):
             else:
                 self.device.screenshot()
 
-            if self.appear(SUBMARINE_MOVE_ENTER, offset=120, interval=5):
+            if self.appear(SUBMARINE_MOVE_ENTER, offset=200, interval=5):
                 self.device.click(SUBMARINE_MOVE_ENTER)
 
             if self.appear(SUBMARINE_MOVE_CONFIRM, offset=(20, 20)):
@@ -180,7 +180,7 @@ class StrategyHandler(InfoHandler):
             if self.handle_popup_confirm('SUBMARINE_MOVE'):
                 pass
 
-            if self.appear(SUBMARINE_MOVE_ENTER, offset=120):
+            if self.appear(SUBMARINE_MOVE_ENTER, offset=200):
                 break
 
     def strategy_submarine_move_cancel(self, skip_first_screenshot=True):
@@ -201,7 +201,7 @@ class StrategyHandler(InfoHandler):
             if self.handle_popup_confirm('SUBMARINE_MOVE'):
                 pass
 
-            if self.appear(SUBMARINE_MOVE_ENTER, offset=120):
+            if self.appear(SUBMARINE_MOVE_ENTER, offset=200):
                 break
 
     def is_in_strategy_mob_move(self):
@@ -211,23 +211,22 @@ class StrategyHandler(InfoHandler):
         """
         return self.appear(MOB_MOVE_CANCEL, offset=(20, 20))
 
-    def strategy_get_mob_move_remain(self):
+    def strategy_has_mob_move(self):
         """
         Pages:
             in: STRATEGY_OPENED
             out: STRATEGY_OPENED
         """
-        if self.appear(MOB_MOVE_2, offset=MOB_MOVE_OFFSET):
-            return 2
-        elif self.appear(MOB_MOVE_1, offset=MOB_MOVE_OFFSET):
-            return 1
+        if (self.appear(MOB_MOVE_ENTER, offset=MOB_MOVE_OFFSET)
+                and MOB_MOVE_ENTER.match_appear_on(self.device.image)):
+            return True
         else:
-            return 0
+            return False
 
     def strategy_mob_move_enter(self, skip_first_screenshot=True):
         """
         Pages:
-            in: STRATEGY_OPENED, MOB_MOVE_1 or MOB_MOVE_2
+            in: STRATEGY_OPENED, MOB_MOVE_ENTER
             out: MOB_MOVE_CANCEL
         """
         logger.info('Mob move enter')
@@ -240,16 +239,14 @@ class StrategyHandler(InfoHandler):
             if self.appear(MOB_MOVE_CANCEL, offset=(20, 20)):
                 break
 
-            if self.appear_then_click(MOB_MOVE_1, offset=MOB_MOVE_OFFSET, interval=5):
-                continue
-            if self.appear_then_click(MOB_MOVE_2, offset=MOB_MOVE_OFFSET, interval=5):
+            if self.appear_then_click(MOB_MOVE_ENTER, offset=MOB_MOVE_OFFSET, interval=5):
                 continue
 
     def strategy_mob_move_cancel(self, skip_first_screenshot=True):
         """
         Pages:
             in: MOB_MOVE_CANCEL
-            out: STRATEGY_OPENED, MOB_MOVE_1 or MOB_MOVE_2
+            out: STRATEGY_OPENED, MOB_MOVE_ENTER
         """
         logger.info('Mob move cancel')
         while 1:
@@ -258,8 +255,7 @@ class StrategyHandler(InfoHandler):
             else:
                 self.device.screenshot()
 
-            if self.appear(MOB_MOVE_1, offset=MOB_MOVE_OFFSET) \
-                    or self.appear(MOB_MOVE_2, offset=MOB_MOVE_OFFSET):
+            if self.appear(MOB_MOVE_ENTER, offset=MOB_MOVE_OFFSET):
                 break
 
             if self.appear_then_click(MOB_MOVE_CANCEL, offset=(20, 20), interval=5):

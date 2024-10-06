@@ -6,6 +6,7 @@ from module.base.timer import Timer
 from module.base.utils import *
 from module.exception import CampaignNameError
 from module.logger import logger
+from module.map.assets import WITHDRAW
 from module.ocr.ocr import Ocr
 from module.template.assets import *
 
@@ -115,7 +116,7 @@ class CampaignOcr(ModuleBase):
 
     @cached_property
     def _stage_image(self):
-        return crop(self.device.image, self._stage_detect_area)
+        return crop(self.device.image, self._stage_detect_area, copy=False)
 
     @cached_property
     def _stage_image_gray(self):
@@ -164,6 +165,12 @@ class CampaignOcr(ModuleBase):
                 image, self._stage_image_gray,
                 similarity=0.6,
                 name_offset=(52, 0), name_size=(60, 22)
+            )
+        if '20240725' in self.config.STAGE_ENTRANCE:
+            digits += self.campaign_match_multi(
+                TEMPLATE_STAGE_CLEAR_20240725,
+                image, self._stage_image_gray,
+                name_offset=(73, -4), name_size=(60, 22)
             )
 
         return digits
@@ -233,6 +240,12 @@ class CampaignOcr(ModuleBase):
                 similarity=0.6,
                 name_offset=(52, 0), name_size=(60, 22)
             )
+        if '20240725' in self.config.STAGE_ENTRANCE:
+            digits += self.campaign_match_multi(
+                TEMPLATE_STAGE_CLEAR_20240725,
+                image, self._stage_image_gray,
+                name_offset=(73, -4), name_size=(60, 22)
+            )
 
         return digits
 
@@ -270,6 +283,8 @@ class CampaignOcr(ModuleBase):
         del_cached_property(self, '_stage_image')
         del_cached_property(self, '_stage_image_gray')
         buttons = self.campaign_extract_name_image(image)
+        del_cached_property(self, '_stage_image')
+        del_cached_property(self, '_stage_image_gray')
         if len(buttons) == 0:
             logger.info('No stage found.')
             raise CampaignNameError
@@ -307,27 +322,42 @@ class CampaignOcr(ModuleBase):
         logger.attr('Chapter', self.campaign_chapter)
         logger.attr('Stage', ', '.join(self.stage_entrance.keys()))
 
-    def get_chapter_index(self, image):
+    def handle_get_chapter_additional(self):
+        """
+        Returns:
+            bool: If clicked
+        """
+        if self.appear(WITHDRAW, offset=(30, 30)):
+            logger.warning(f'get_chapter_index: WITHDRAW appears')
+            raise CampaignNameError
+
+    def get_chapter_index(self, skip_first_screenshot=True):
         """
         A tricky method for ui_ensure_index
 
         Args:
-            image: Screenshot
+            skip_first_screenshot:
 
         Returns:
             int: Chapter index.
         """
         timeout = Timer(2, count=4).start()
         while 1:
+            if skip_first_screenshot:
+                skip_first_screenshot = False
+            else:
+                self.device.screenshot()
+
             if timeout.reached():
                 raise CampaignNameError
-
+            image = self.device.image
             try:
                 self._get_stage_name(image)
                 break
             except (IndexError, CampaignNameError):
-                self.device.screenshot()
-                image = self.device.image
+                pass
+
+            if self.handle_get_chapter_additional():
                 continue
 
         return self._campaign_get_chapter_index(self.campaign_chapter)
